@@ -1,0 +1,53 @@
+/* src/VehiclePage.css */
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
+.header h1 {
+  font-size: 24px;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+}
+
+.vehicle-info, .order-info {
+  margin: 20px 0;
+}
+
+.vehicle-options {
+  margin: 20px 0;
+}
+
+.option {
+  margin: 10px 0;
+}
+
+footer {
+  background-color: #f8f8f8;
+  padding: 10px;
+  text-align: center;
+}
+
+footer ul {
+  list-style-type: none;
+}
+
+footer ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.vehicle-image {
+  width: 100%;
+  height: auto;
+}

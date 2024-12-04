@@ -1,0 +1,45 @@
+/* src/DatabasePage.css */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.database-table {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.database-table th, .database-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.modal input {
+  margin-bottom: 10px;
+  padding: 8px;
+  width: 100%;
+}
+
+.modal button {
+  margin: 5px;
+}

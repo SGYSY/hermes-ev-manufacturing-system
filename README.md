@@ -9,8 +9,6 @@ This project uses React to create a database management system, supporting view 
 After installing Node.js and npm, you can confirm if the installation was successful with the following commands:
 
 ```bash
-bash
-Copy code
 node -v
 npm -v
 
@@ -25,8 +23,6 @@ npm -v
 To speed up the npm download process, you can configure the Taobao mirror:
 
 ```bash
-bash
-Copy code
 npm config set registry https://registry.npmmirror.com/
 
 ```
@@ -36,8 +32,6 @@ npm config set registry https://registry.npmmirror.com/
 Use the following command to create a React project:
 
 ```bash
-bash
-Copy code
 npx create-react-app ysy-database
 
 ```
@@ -51,8 +45,6 @@ npx create-react-app ysy-database
 To support view switching in the browser, install `react-router-dom`:
 
 ```bash
-bash
-Copy code
 npm install react-router-dom
 
 ```
@@ -66,8 +58,6 @@ npm install react-router-dom
 Run the project and view the output:
 
 ```bash
-bash
-Copy code
 npm start
 
 ```

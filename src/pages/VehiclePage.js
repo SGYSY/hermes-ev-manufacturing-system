@@ -75,7 +75,7 @@ function VehiclePage() {
         <div className="info-section">
           <div className="info-title">Wheel Hub</div>
           <div className="info-content">
-          <div className="image-column">
+            <div className="image-column">
               <img src={wheelImage} alt={`${vehicle.color} color`} className="color-image" />
             </div>
           </div>
@@ -85,7 +85,7 @@ function VehiclePage() {
         <div className="info-section">
           <div className="info-title">Vehicle Trim</div>
           <div className="info-content">
-          <div className="image-column">
+            <div className="image-column">
               <img src={trimImage} alt={`${vehicle.color} color`} className="color-image" />
             </div>
           </div>

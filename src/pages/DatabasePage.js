@@ -1,4 +1,3 @@
-// src/pages/DatabasePage.js
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import DatabaseTable from '../components/DatabaseTable';
@@ -16,6 +15,7 @@ function DatabasePage() {
     { id: 6, name: 'Emily Davis' },
     { id: 7, name: 'James Wilson' },
   ]);
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(Math.ceil(records.length / 5));
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,18 +61,23 @@ function DatabasePage() {
   };
 
   return (
-    <div>
+    <div className="database-page">
       <Header openAddModal={() => { setCurrentRecord(null); setIsModalOpen(true); }} />
-      <DatabaseTable
-        records={getCurrentPageRecords()}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      
+      <div className="table-container">
+        <DatabaseTable
+          records={getCurrentPageRecords()}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      </div>
+
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
+      
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

@@ -42,10 +42,10 @@ npx create-react-app ysy-database
 
 ### 1. **Install React Router**
 
-To support view switching in the browser, install `react-router-dom`:
+To support view switching in the browser and to draw chart view, install `react-router-dom` `chart.js` `react-chartjs-2`:
 
 ```bash
-npm install react-router-dom
+npm install react-router-dom chart.js react-chartjs-2
 
 ```
 

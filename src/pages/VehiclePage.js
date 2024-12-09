@@ -9,7 +9,6 @@ import vehicleImage from '../picture/vehicle.png';
 import colorImage from '../picture/color.png';
 import trimImage from '../picture/trim.png';
 import wheelImage from '../picture/wheel.png';
-import logoImage from '../picture/logo.png';
 
 function VehiclePage() {
   const [vehicle, setVehicle] = useState({

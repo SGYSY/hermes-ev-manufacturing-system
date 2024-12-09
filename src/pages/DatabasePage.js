@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import DatabaseTable from '../components/DatabaseTable';
 import Pagination from '../components/Pagination';
 import Modal from '../components/Modal';
+import Charts from '../components/Charts'; // 引入图表组件
 import './DatabasePage.css';
 
 function DatabasePage() {
@@ -63,6 +64,9 @@ function DatabasePage() {
   return (
     <div className="database-page">
       <Header openAddModal={() => { setCurrentRecord(null); setIsModalOpen(true); }} />
+      
+      {/* 显示图表部分 */}
+      <Charts />
       
       <div className="table-container">
         <DatabaseTable

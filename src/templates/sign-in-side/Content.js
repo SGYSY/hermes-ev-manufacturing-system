@@ -13,27 +13,27 @@ import { SitemarkIcon } from './CustomIcons';
 const items = [
   {
     icon: <SettingsSuggestRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Adaptable performance',
+    title: 'Seamless Access',
     description:
-      'Our product effortlessly adjusts to your needs, boosting efficiency and simplifying your tasks.',
+      'Effortlessly log in to your account with just a few clicks, setting you on the road to an enhanced driving experience.',
   },
   {
     icon: <ConstructionRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Built to last',
+    title: 'Enhanced Security',
     description:
-      'Experience unmatched durability that goes above and beyond with lasting investment.',
+      'Rest easy knowing your personal information is protected by state-of-the-art security features designed for your peace of mind.',
   },
   {
     icon: <ThumbUpAltRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Great user experience',
+    title: 'Intuitive Interface',
     description:
-      'Integrate our product into your routine with an intuitive and easy-to-use interface.',
+      'Navigate through your account with ease, thanks to a user-friendly design that makes managing your vehicle\'s details a breeze.',
   },
   {
     icon: <AutoFixHighRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Innovative functionality',
+    title: 'Innovative Features',
     description:
-      'Stay ahead with features that set new standards, addressing your evolving needs better than the rest.',
+      'Stay connected with cutting-edge tools and personalized options that evolve with your needs, helping you get the most out of your vehicle.',
   },
 ];
 

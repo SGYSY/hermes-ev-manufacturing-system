@@ -39,12 +39,14 @@ import SignInSide from './templates/sign-in-side/SignInSide'; // 导入 SignInSi
 import SignUp from './templates/sign-up/SignUp'; // 导入 SignUp 组件
 import Dashboard from './templates/dashboard/Dashboard'; // 导入 Dashboard 组件
 import './App.css';
+import TestAPI from './TestAPI'
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
+          {/* <Route path="/" element={<TestAPI />} /> */}
           <Route path="/" element={<SignInSide />} /> {/* 默认显示 SignInSide 页面 */}
           <Route path="/signup" element={<SignUp />} /> {/* 路由到 SignUp 页面 */}
           <Route path="/dashboard" element={<Dashboard />} /> {/* 添加新的 Dashboard 路由 */}

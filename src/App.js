@@ -38,6 +38,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import SignInSide from './templates/sign-in-side/SignInSide'; // 导入 SignInSide 组件
 import SignUp from './templates/sign-up/SignUp'; // 导入 SignUp 组件
 import Dashboard from './templates/dashboard/Dashboard'; // 导入 Dashboard 组件
+import Dashboard_staff from './templates/dashboard_staff/Dashboard_staff'; // 导入 Dashboard 组件
 import './App.css';
 import TestAPI from './TestAPI'
 
@@ -46,10 +47,11 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          {/* <Route path="/" element={<TestAPI />} /> */}
-          <Route path="/" element={<SignInSide />} /> {/* 默认显示 SignInSide 页面 */}
+          <Route path="/" element={<TestAPI />} />
+          {/* <Route path="/" element={<SignInSide />} />  */}
           <Route path="/signup" element={<SignUp />} /> {/* 路由到 SignUp 页面 */}
           <Route path="/dashboard" element={<Dashboard />} /> {/* 添加新的 Dashboard 路由 */}
+          <Route path="/dashboard_staff" element={<Dashboard_staff />} /> {/* 添加新的 Dashboard 路由 */}
         </Routes>
       </div>
     </Router>

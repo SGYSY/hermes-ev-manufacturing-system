@@ -91,11 +91,21 @@ export default function SignInCard() {
       // 模拟的用户数据
       const validEmail = 'user@example.com';
       const validPassword = 'password123';
+      const validStaff = 'staff@example.com';
+      const validPasswordStaff = 'password456';
+      const validSupplier = 'supplier@example.com';
+      const validPasswordSupplier = 'password789';
 
       // 比较用户输入的值与硬编码的模拟值
       if (email.value === validEmail && password.value === validPassword) {
         // 验证通过，跳转到 Dashboard 页面
         navigate('/dashboard');
+      } else if (email.value === validStaff && password.value === validPasswordStaff) {
+        // 验证通过，跳转到 Dashboard 页面
+        navigate('/dashboard_staff');
+      } else if (email.value === validStaff && password.value === validPasswordStaff) {
+        // 验证通过，跳转到 Dashboard 页面
+        navigate('/dashboard_staff');
       } else {
         // 如果验证失败，可以弹出错误提示
         alert('Invalid credentials, please try again.');

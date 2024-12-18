@@ -1,60 +1,132 @@
-import React, { useEffect, useState } from 'react';
-import { getSalesData, getRawMaterials, getProductionOutput, getVehicleInventory, getEmployees } from './api';
+import React, { useState } from 'react';
+import { getSalesData, getProductionInfo, getVehicleInventory, getEmployees, updateEmployee, deleteEmployee } from './api';  // 导入API请求函数
 
-export default function TestAPI() {
+const TestAPI = () => {
   const [salesData, setSalesData] = useState(null);
-  const [rawMaterials, setRawMaterials] = useState(null);
-  const [productionOutput, setProductionOutput] = useState(null);
+  const [productionData, setProductionData] = useState(null);
   const [vehicleInventory, setVehicleInventory] = useState(null);
-  const [employees, setEmployees] = useState(null);
-  const [error, setError] = useState('');
+  const [employees, setEmployees] = useState([]);
+  const [employeeUpdateStatus, setEmployeeUpdateStatus] = useState('');
+  const [employeeDeleteStatus, setEmployeeDeleteStatus] = useState('');
+  const [location, setLocation] = useState("ALL");  // 用于选择车型库存的位置
 
-  useEffect(() => {
-    // 测试获取销售数据
-    getSalesData()
-      .then((res) => setSalesData(res.data))
-      .catch((err) => setError(`获取销售数据失败: ${err.message}`));
+  // 获取销售数据概览
+  const fetchSalesData = async () => {
+    try {
+      const response = await getSalesData();
+      setSalesData(response.data);
+    } catch (error) {
+      console.error("Error fetching sales data", error);
+    }
+  };
 
-    // 测试获取原材料数据
-    getRawMaterials()
-      .then((res) => setRawMaterials(res.data))
-      .catch((err) => setError(`获取原材料数据失败: ${err.message}`));
+  // 获取工厂生产信息
+  const fetchProductionData = async () => {
+    try {
+      const response = await getProductionInfo();
+      setProductionData(response.data);
+    } catch (error) {
+      console.error("Error fetching production data", error);
+    }
+  };
 
-    // 测试获取生产输出数据
-    getProductionOutput()
-      .then((res) => setProductionOutput(res.data))
-      .catch((err) => setError(`获取生产输出数据失败: ${err.message}`));
+  // 获取车型库存信息
+  const fetchVehicleInventory = async () => {
+    try {
+      const response = await getVehicleInventory(location);
+      setVehicleInventory(response.data);
+    } catch (error) {
+      console.error("Error fetching vehicle inventory", error);
+    }
+  };
 
-    // 测试获取车辆库存数据
-    getVehicleInventory()
-      .then((res) => setVehicleInventory(res.data))
-      .catch((err) => setError(`获取车辆库存数据失败: ${err.message}`));
+  // 获取员工信息
+  const fetchEmployees = async () => {
+    try {
+      const response = await getEmployees();
+      setEmployees(response.data);
+    } catch (error) {
+      console.error("Error fetching employees", error);
+    }
+  };
 
-    // 测试获取员工数据
-    getEmployees()
-      .then((res) => setEmployees(res.data))
-      .catch((err) => setError(`获取员工数据失败: ${err.message}`));
-  }, []);
+  // 更新员工信息
+  const handleUpdateEmployee = async (id) => {
+    const updatedData = {
+      name: "新员工姓名",
+      phone: "1234567890",
+      salary: "5000",
+      branch_id: "1",
+      department_id: "2",
+    };
+    try {
+      const response = await updateEmployee(id, updatedData);
+      setEmployeeUpdateStatus(response.data.message);
+    } catch (error) {
+      console.error("Error updating employee", error);
+    }
+  };
+
+  // 删除员工
+  const handleDeleteEmployee = async (id) => {
+    try {
+      const response = await deleteEmployee(id);
+      setEmployeeDeleteStatus(response.data.message);
+    } catch (error) {
+      console.error("Error deleting employee", error);
+    }
+  };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>API 测试结果</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div>
+      <h1>Test Manager API</h1>
+      <div>
+        <button onClick={fetchSalesData}>Get Sales Data</button>
+        <button onClick={fetchProductionData}>Get Production Data</button>
+        <button onClick={fetchVehicleInventory}>Get Vehicle Inventory</button>
+        <button onClick={fetchEmployees}>Get Employees</button>
+      </div>
 
-      <h3>销售数据：</h3>
-      <pre>{salesData ? JSON.stringify(salesData, null, 2) : '加载中...'}</pre>
+      {/* 销售数据 */}
+      <div>
+        <h2>Sales Data</h2>
+        <pre>{JSON.stringify(salesData, null, 2)}</pre>
+      </div>
 
-      <h3>原材料数据：</h3>
-      <pre>{rawMaterials ? JSON.stringify(rawMaterials, null, 2) : '加载中...'}</pre>
+      {/* 生产数据 */}
+      <div>
+        <h2>Production Data</h2>
+        <pre>{JSON.stringify(productionData, null, 2)}</pre>
+      </div>
 
-      <h3>生产输出数据：</h3>
-      <pre>{productionOutput ? JSON.stringify(productionOutput, null, 2) : '加载中...'}</pre>
+      <div>
+        <h2>Vehicle Inventory</h2>
+        <select value={location} onChange={(e) => setLocation(e.target.value)}>
+          <option value="ALL">All</option>
+          <option value="Warehouse NY">Warehouse NY</option>
+          <option value="Warehouse LA">Warehouse LA</option>
+          <option value="Warehouse Chicago">Warehouse Chicago</option>
+        </select>
+        <button onClick={fetchVehicleInventory}>Fetch Inventory</button>
+        <pre>{JSON.stringify(vehicleInventory, null, 2)}</pre>
+      </div>
 
-      <h3>车辆库存数据：</h3>
-      <pre>{vehicleInventory ? JSON.stringify(vehicleInventory, null, 2) : '加载中...'}</pre>
 
-      <h3>员工数据：</h3>
-      <pre>{employees ? JSON.stringify(employees, null, 2) : '加载中...'}</pre>
+      {/* 员工信息 */}
+      <div>
+        <h2>Employees</h2>
+        {/* 显示完整员工数据，直接显示 JSON 格式 */}
+        <pre>{JSON.stringify(employees, null, 2)}</pre>
+      </div>
+
+
+      {/* 员工更新和删除状态 */}
+      <div>
+        <h3>{employeeUpdateStatus}</h3>
+        <h3>{employeeDeleteStatus}</h3>
+      </div>
     </div>
   );
-}
+};
+
+export default TestAPI;

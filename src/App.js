@@ -40,15 +40,32 @@ import SignUp from './templates/sign-up/SignUp'; // 导入 SignUp 组件
 import Dashboard from './templates/dashboard/Dashboard'; // 导入 Dashboard 组件
 import Dashboard_staff from './templates/dashboard_staff/Dashboard_staff'; // 导入 Dashboard 组件
 import './App.css';
-import TestAPI from './TestAPI'
+import TestAPI from './TestAPI';
+// Import all pages
+import AccessoriesPage from './pages/AccessoriesPage';
+import CompanyIntroductionPage from './pages/CompanyIntroductionPage';
+import VehicleDetailPage from './pages/VehicleDetailPage';
+import MainPage from './pages/HomePage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import ProductIntroductionPage from './pages/ProductIntroductionPage';
+import TermsOfServicePage from './pages/TermsOfServicePage';
+
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<TestAPI />} />
-          {/* <Route path="/" element={<SignInSide />} />  */}
+          <Route path="/" element={<MainPage />} />
+          <Route path="/accessories" element={<AccessoriesPage />} />
+          <Route path="/company-introduction" element={<CompanyIntroductionPage />} />
+          <Route path="/vehicle-detail" element={<VehicleDetailPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/product-introduction" element={<ProductIntroductionPage />} />
+          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+
+          <Route path="/test" element={<TestAPI />} />
+          <Route path="/signin" element={<SignInSide />} /> 
           <Route path="/signup" element={<SignUp />} /> {/* 路由到 SignUp 页面 */}
           <Route path="/dashboard" element={<Dashboard />} /> {/* 添加新的 Dashboard 路由 */}
           <Route path="/dashboard_staff" element={<Dashboard_staff />} /> {/* 添加新的 Dashboard 路由 */}

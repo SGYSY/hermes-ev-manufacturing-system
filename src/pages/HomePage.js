@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
 import './HomePage.css';
+import { useNavigate } from 'react-router-dom';
 
 // 导入图片资源
 import Model4Image from '../assets/Model4.jpg';
 import Model5Image from '../assets/Model5.jpg';
 import Model6Image from '../assets/Model6.jpg';
 
+
+
 const HomePage = () => {
+  const navigate = useNavigate(); // 初始化 useNavigate
   useEffect(() => {
     // 添加下拉菜单和遮罩层的交互逻辑
     const navbarItems = document.querySelectorAll('.navbar-item');
@@ -62,6 +66,14 @@ const HomePage = () => {
     }
   }, []);
 
+  // 定义跳转函数
+  const handleBuyNowClick = () => {
+    navigate('/accessories'); // 跳转到 AccessoriesPage
+  };
+  const handleLearnMoreClick = () => {
+    navigate('/vehicle-detail'); // 跳转到 
+  };
+
   return (
     <div>
       {/* Header Section */}
@@ -112,7 +124,7 @@ const HomePage = () => {
         <div className="hero-content">
           <h1>Introducing the New Vehicle</h1>
           <p>The future of vehicles technology is here</p>
-          <a href="#" className="cta-button" id="ctaButton">Learn More</a>
+          <button onClick={handleLearnMoreClick} className="cta-button">Learn More</button>
         </div>
       </section>
 
@@ -122,19 +134,20 @@ const HomePage = () => {
           <img src={Model4Image} alt="Product 1" />
           <h3>Model 1</h3>
           <p>Advanced technology. Stunning design.</p>
-          <a href="#" className="cta-button">Buy Now</a>
+          <button onClick={handleBuyNowClick} className="cta-button">Buy Now</button>
         </div>
         <div className="product-card">
           <img src={Model5Image} alt="Product 2" />
           <h3>Model 2</h3>
           <p>Power and performance in every task.</p>
-          <a href="#" className="cta-button">Buy Now</a>
+          <button onClick={handleBuyNowClick} className="cta-button">Buy Now</button>
         </div>
         <div className="product-card">
           <img src={Model6Image} alt="Product 3" />
           <h3>Model 3</h3>
           <p>Perfect blend of style and health features.</p>
-          <a href="#" className="cta-button">Buy Now</a>
+          <button onClick={handleBuyNowClick} className="cta-button">Buy Now</button>
+          
         </div>
       </section>
 

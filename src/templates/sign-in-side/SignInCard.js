@@ -14,6 +14,7 @@ import { styled } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
 import { useNavigate } from 'react-router-dom'; // 导入 useNavigate
+import axios from 'axios';
 
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -34,7 +35,111 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }),
 }));
 
+
+
 export default function SignInCard() {
+  const handleStaffLogin = async () => {
+    const email = document.getElementById('email').value.trim(); // 获取输入的Email作为employee_id
+    const password = document.getElementById('password').value;
+  
+    // 构建请求体
+    const requestBody = {
+      employee_id: email, // 直接使用Email作为employee_id
+      password: password, // 直接使用输入的密码
+    };
+  
+    // 在发送请求之前 alert 数据内容
+    alert(`Sending Staff Login Data: ${JSON.stringify(requestBody)}`);
+  
+    try {
+      const response = await axios.post(
+        'http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/login.php/employee',
+        requestBody,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      // 解析返回结果
+      const responseData = response.data;
+  
+      // 验证成功时处理数据
+      if (responseData.status === 'success') {
+        const position = responseData.message.position;
+  
+        // 存储数据到 localStorage
+        localStorage.setItem('position', position);
+        localStorage.setItem('employee_id', email); // 存储Email作为employee_id
+        localStorage.setItem('password', password);
+        if (position==="Manager") {
+          navigate('/dashboard');
+        } else if (position==="Salesman") {
+          navigate('/dashboard_staff');
+        } else if (position==="Supplier") {
+          navigate('/dashboard_supplier');
+        } else {
+          alert(`Retrurn message: ${JSON.stringify(response)}`);
+        }
+  
+        alert(`Login successful! Position: ${position}`);
+      } else {
+        alert(`Retrurn message: ${JSON.stringify(response)}`);
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
+  };
+  
+  const handleCustomerLogin = async (event) => {
+    event.preventDefault(); // 阻止表单默认提交行为
+  
+    const email = document.getElementById('email').value.trim(); // 获取输入的Email作为customer_id
+    const password = document.getElementById('password').value;
+  
+    // 构建请求体
+    const requestBody = {
+       email, // 直接使用Email作为customer_id
+       password, // 直接使用输入的密码
+    };
+  
+    // 在发送请求之前 alert 数据内容
+    alert(`Sending Customer Login Data: ${JSON.stringify(requestBody)}`);
+  
+    try {
+      const response = await axios.post(
+        'http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/login.php/customer',
+        requestBody,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      // 解析返回结果
+      const responseData = response.data;
+  
+      // 验证成功时处理数据
+      if (responseData.status === 'success') {
+        const customerId = responseData.message;
+  
+        // 存储数据到 localStorage
+        localStorage.setItem('customer_id', email); // 存储Email作为customer_id
+        localStorage.setItem('password', password);
+  
+        alert(`Login successful! Customer ID: ${customerId}`);
+      } else {
+        alert(`Retrurn message: ${JSON.stringify(response)}`);
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
+  };
+
+
+
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
@@ -62,60 +167,60 @@ export default function SignInCard() {
     });
   };
 
-  const validateInputs = (event) => {
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
+  // const validateInputs = (event) => {
+  //   const email = document.getElementById('email');
+  //   const password = document.getElementById('password');
 
-    let isValid = true;
+  //   let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
-    }
+  //   if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+  //     setEmailError(true);
+  //     setEmailErrorMessage('Please enter a valid email address.');
+  //     isValid = false;
+  //   } else {
+  //     setEmailError(false);
+  //     setEmailErrorMessage('');
+  //   }
 
-    if (!password.value || password.value.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage('');
-    }
+  //   if (!password.value || password.value.length < 6) {
+  //     setPasswordError(true);
+  //     setPasswordErrorMessage('Password must be at least 6 characters long.');
+  //     isValid = false;
+  //   } else {
+  //     setPasswordError(false);
+  //     setPasswordErrorMessage('');
+  //   }
 
-    // 如果验证成功，模拟与数据库的对比，跳转到 Dashboard
-    if (isValid) {
-      // 模拟的用户数据
-      const validEmail = 'user@example.com';
-      const validPassword = 'password123';
-      const validStaff = 'staff@example.com';
-      const validPasswordStaff = 'password456';
-      const validSupplier = 'supplier@example.com';
-      const validPasswordSupplier = 'password789';
+  //   // 如果验证成功，模拟与数据库的对比，跳转到 Dashboard
+  //   if (isValid) {
+  //     // 模拟的用户数据
+  //     const validEmail = 'user@example.com';
+  //     const validPassword = 'password123';
+  //     const validStaff = 'staff@example.com';
+  //     const validPasswordStaff = 'password456';
+  //     const validSupplier = 'supplier@example.com';
+  //     const validPasswordSupplier = 'password789';
 
-      // 比较用户输入的值与硬编码的模拟值
-      if (email.value === validEmail && password.value === validPassword) {
-        // 验证通过，跳转到 Dashboard 页面
-        navigate('/dashboard');
-      } else if (email.value === validStaff && password.value === validPasswordStaff) {
-        // 验证通过，跳转到 Dashboard 页面
-        navigate('/dashboard_staff');
-      } else if (email.value === validStaff && password.value === validPasswordStaff) {
-        // 验证通过，跳转到 Dashboard 页面
-        navigate('/dashboard_staff');
-      } else {
-        // 如果验证失败，可以弹出错误提示
-        alert('Invalid credentials, please try again.');
-      }
-    }
+  //     // 储存用户输入的邮箱和密码
+  //     // localStorage.setItem('email', email.value);
+  //     // localStorage.setItem('password', password.value);
 
-    event.preventDefault(); // 阻止表单提交
+  //     // 跳转到对应页面
+  //     if (email.value === validEmail && password.value === validPassword) {
+  //       navigate('/dashboard');
+  //     } else if (email.value === validStaff && password.value === validPasswordStaff) {
+  //       navigate('/dashboard_staff');
+  //     } else if (email.value === validSupplier && password.value === validPasswordSupplier) {
+  //       navigate('/dashboard_supplier');
+  //     } else {
+  //       alert('Invalid credentials, please try again.');
+  //     }
+  //   }
 
-    // return isValid;
-  };
+  //   event.preventDefault(); // 阻止表单提交
+
+  //   // return isValid;
+  // };
 
   return (
     <Card variant="outlined">
@@ -185,8 +290,12 @@ export default function SignInCard() {
           label="Remember me"
         />
         <ForgotPassword open={open} handleClose={handleClose} />
-        <Button type="submit" fullWidth variant="contained" onClick={validateInputs}>
-          Sign in
+        <Button type="button" fullWidth variant="contained" onClick={handleCustomerLogin}>
+          Sign in customer
+        </Button>
+        <Button type="button" fullWidth variant="outlined" onClick={handleStaffLogin}
+        >
+          Sign in staff
         </Button>
         <Typography sx={{ textAlign: 'center' }}>
           Don&apos;t have an account?{' '}

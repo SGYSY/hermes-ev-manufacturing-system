@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   getCustomerIDs,
   getStoreIDs,
@@ -54,8 +55,8 @@ const CreateOrder = () => {
 
   const handleSubmit = async () => {
     try {
-      // 确保 ID 是整数，金额是浮动数字，日期和状态是字符串
-      const formattedData = {
+       // 确保 ID 是整数，金额是浮动数字，日期和状态是字符串
+       const formattedData = {
         ...orderData,
         order_id: parseInt(orderData.order_id, 10),  // 确保转换为整数
         customer_id: parseInt(orderData.customer_id, 10), // 确保转换为整数
@@ -65,12 +66,12 @@ const CreateOrder = () => {
         delivery_date: orderData.delivery_date, // 保留字符串格式的日期
         status: orderData.status, // 保留状态为字符串
       };
-  
+      alert(`订单数据：\n${JSON.stringify(formattedData, null, 2)}`);
       const response = await createOrder(salesmanId, formattedData);
       console.log("Order created:", response);  // 查看完整的响应数据
   
       if (response) {
-        alert('订单创建成功！');
+        alert(`返回数据：\n${JSON.stringify(response.data, null, 2)}`);
         setOrderData({
           order_id: '',
           customer_id: '',

@@ -61,7 +61,7 @@ const VehicleDetailPage = () => {
 
   // 定义跳转函数
   const handleHomeClick = () => {
-    navigate('/'); // 跳转到 
+    navigate('/mainpage'); // 跳转到 
     window.location.reload();
   };
   const handleBuyNowClick = () => {
@@ -210,6 +210,111 @@ const VehicleDetailPage = () => {
         <div className="pricing">
           <h2>Pricing</h2>
           <p>The base price for Model 1 starts at $80,000 USD.</p>
+        </div>
+      </section>
+      <section id="model2" className="product-detail">
+        <div className="product-header">
+          <h1>Model 2: Hybrid Powerhouse</h1>
+          <p>
+            The Model 2 is the perfect blend of power and efficiency, featuring a hybrid V6 engine for a smooth ride.
+          </p>
+        </div>
+        <div className="specs-table">
+          <h2>Technical Specifications</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Model 1</th>
+                <th>Model 2</th>
+                <th>Model 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Engine Type</td>
+                <td>V8 Turbo</td>
+                <td>V6 Hybrid</td>
+                <td>Electric Motor</td>
+              </tr>
+              <tr>
+                <td>Max Power (hp)</td>
+                <td>500</td>
+                <td>400</td>
+                <td>300</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="product-description">
+          <h2>Overview</h2>
+          <p>
+            The Model 2 provides exceptional fuel efficiency with its hybrid technology, perfect for long-distance travel.
+          </p>
+          <h3>Key Features</h3>
+          <ul>
+            <li>Eco-friendly Hybrid System</li>
+            <li>Advanced Safety Features</li>
+          </ul>
+        </div>
+
+        <div className="pricing">
+          <h2>Pricing</h2>
+          <p>The base price for Model 2 starts at $60,000 USD.</p>
+        </div>
+      </section>
+
+      <section id="model3" className="product-detail">
+        <div className="product-header">
+          <h1>Model 3: Electric Revolution</h1>
+          <p>
+            The Model 3 is a fully electric vehicle with cutting-edge technology and zero emissions.
+          </p>
+        </div>
+        <div className="specs-table">
+          <h2>Technical Specifications</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Model 1</th>
+                <th>Model 2</th>
+                <th>Model 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Engine Type</td>
+                <td>V8 Turbo</td>
+                <td>V6 Hybrid</td>
+                <td>Electric Motor</td>
+              </tr>
+              <tr>
+                <td>Max Power (hp)</td>
+                <td>500</td>
+                <td>400</td>
+                <td>300</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="product-description">
+          <h2>Overview</h2>
+          <p>
+            The Model 3 redefines the electric vehicle market with exceptional range and unparalleled performance.
+          </p>
+          <h3>Key Features</h3>
+          <ul>
+            <li>Zero Emissions</li>
+            <li>Long-Range Battery</li>
+          </ul>
+        </div>
+
+        <div className="pricing">
+          <h2>Pricing</h2>
+          <p>The base price for Model 3 starts at $50,000 USD.</p>
         </div>
       </section>
 

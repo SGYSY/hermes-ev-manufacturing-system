@@ -113,14 +113,14 @@ const ProductIntroductionPage = () => {
 
   // 定义跳转函数
   const handleHomeClick = () => {
-    navigate('/'); // 跳转到 
+    navigate('/mainpage'); // 跳转到 
     window.location.reload();
   };
-  const handleBuyNowClick = () => {
+  const handleOrderNowClick = () => {
     navigate('/accessories'); // 跳转到 AccessoriesPage
     window.location.reload();
   };
-  const handleLearnMoreClick = () => {
+  const handleDetailClick = () => {
     navigate('/vehicle-detail'); // 跳转到 
     window.location.reload();
   };
@@ -253,8 +253,8 @@ const ProductIntroductionPage = () => {
                 </tbody>
               </table>
             </div>
-            <a href="#" className="order-btn">Order Now</a>
-            <a href="#" className="more-detail-btn">More detail</a>
+            <button onClick={handleOrderNowClick} >Order Now</button>
+            <button onClick={handleDetailClick} >More Detail</button>
           </section>
         ))}
       </main>

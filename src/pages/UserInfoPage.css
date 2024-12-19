@@ -90,4 +90,40 @@
   .order-table tr:hover {
     background-color: #ddd;
   }
+
+  .main-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  .content {
+    flex: 2; /* 左侧内容宽度 */
+  }
+  
+  .customer-info {
+    flex: 1; /* 右侧表格宽度 */
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .customer-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .customer-table th,
+  .customer-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .customer-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
   

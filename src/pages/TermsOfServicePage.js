@@ -70,7 +70,7 @@ const TermsOfServicePage = () => {
 
   // 定义跳转函数
   const handleHomeClick = () => {
-    navigate('/'); // 跳转到 
+    navigate('/mainpage'); // 跳转到 
     window.location.reload();
   };
   const handleBuyNowClick = () => {

@@ -49,7 +49,7 @@ import MainPage from './pages/HomePage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import ProductIntroductionPage from './pages/ProductIntroductionPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
-
+import UserInfoPage from './pages/UserInfoPage';
 
 function App() {
   return (
@@ -63,7 +63,7 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/product-introduction" element={<ProductIntroductionPage />} />
           <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-
+          <Route path="/user-info" element={<UserInfoPage />} />
           <Route path="/test" element={<TestAPI />} />
           <Route path="/signin" element={<SignInSide />} /> 
           <Route path="/signup" element={<SignUp />} /> {/* 路由到 SignUp 页面 */}

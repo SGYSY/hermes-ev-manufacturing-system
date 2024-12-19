@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './AccessoriesPage.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 // 导入图片资源
 import DefaultImage from '../assets/default.png';
@@ -76,11 +77,58 @@ const AccessoriesPage = () => {
   };
 
   // 处理购买按钮点击
-  const handleSubmitPurchaseClick = () => {
-    const summary = Object.entries(selectedOptions)
-      .map(([key, value]) => `${key}: ${value}`)
-      .join("\n");
-    alert(`你已选择以下配置：\n${summary}`);
+  const handleSubmitPurchaseClick = async () => {
+    const { 车型, 颜色 } = selectedOptions;
+  
+    // 确定车型编号
+    const modelMap = {
+      "Model 1": "1",
+      "Model 2": "2",
+      "Model 3": "3",
+    };
+  
+    // 确定颜色编号
+    const colorMap = {
+      black: "1",
+      white: "2",
+      red: "3",
+      blue: "4",
+      silver: "5",
+    };
+  
+    // 用户 ID
+    const userId = "1234";
+  
+    // 动态生成 order_id
+    const orderId = `${modelMap[车型]}${colorMap[颜色]}${userId}`;
+  
+    // 模拟订单数据
+    const orderData = {
+      order_id: orderId, // 使用动态生成的 order_id
+      customer_id: 2,
+      store_id: 2,
+      order_date: "2024-12-17",
+      delivery_date: "2024-12-25",
+      total_amount: "999.99",
+      status: "Completed",
+    };
+  
+    try {
+      alert(`订单数据：\n${JSON.stringify(orderData, null, 2)}`);
+      const response = await axios.post(
+        "http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/salesman.php/createOrder/2",
+        orderData
+      );
+      alert(`返回数据：\n${JSON.stringify(response.data, null, 2)}`);
+    } catch (error) {
+      if (error.response) {
+        alert(`订单创建失败：\n${error.message}`);
+      } else if (error.request) {
+        alert("无法访问服务器");
+      } else {
+        alert(`发生错误：\n${error.message}`);
+      }
+    }
   };
 
   // 定义跳转函数
@@ -161,7 +209,7 @@ const AccessoriesPage = () => {
                 <li><button onClick={handleTermsOfServiceClick}>Terms of Service</button></li>
                 <li><button onClick={handlePrivacyPolicyClick}>Privacy Policy</button></li>
                 <li>
-                  <button>Contact Us</button>
+                <button href="javascript:void(0);" id="contactUs">Contact Us</button>
                 </li>
               </ul>
             </li>

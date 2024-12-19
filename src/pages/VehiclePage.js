@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import VehicleInfo from '../components/VehicleInfo';
 import VehicleOptions from '../components/VehicleOptions';
@@ -19,11 +19,42 @@ function VehiclePage() {
     trim: 'Black'
   });
 
-  const [order, setOrder] = useState({
-    owner: 'lgy',
-    payment: '¥489999',
-    contact: '18586835888'
-  });
+  const [order, setOrder] = useState([]); // Modified to handle multiple orders
+
+  // Fetch order data from the API
+  useEffect(() => {
+    const fetchOrderData = async () => {
+      try {
+        const response = await fetch(
+          'http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/customer.php/orders/customer/1',
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          setOrder(data.data); // Update order state with fetched data
+        } else {
+          console.error('Failed to fetch order information:', data.message);
+          alert(`Error: ${data.message}`);
+        }
+      } catch (error) {
+        console.error('Error fetching order data:', error);
+        alert('Failed to fetch order data. Please try again later.');
+      }
+    };
+
+    fetchOrderData();
+  }, []);
 
   const handleOptionChange = (option, value) => {
     setVehicle((prevState) => ({
@@ -43,8 +74,7 @@ function VehiclePage() {
           className="vehicle-image"
         />
       </div>
-      
-      {/* Vehicle details section */}
+
       {/* Vehicle details section */}
       <div className="vehicle-details">
         {/* Vehicle Version and Right Info */}
@@ -53,7 +83,6 @@ function VehiclePage() {
           <div className="info-content">
             <div className="info-column">
               <span>AWD</span>
-              <span>{order.payment}</span>
               <span>700 battery (kWh)</span>
               <span>200 max speed</span>
             </div>
@@ -91,17 +120,31 @@ function VehiclePage() {
         </div>
       </div>
 
-        {/* Split layout: Vehicle info and Order info */}
-        <div className="vehicle-and-order">
-          <div className="details">
-            <VehicleInfo vehicleName={vehicle.name} version={vehicle.version} />
-            <VehicleOptions onOptionChange={handleOptionChange} />
-          </div>
-          <div className="order-info">
-            <OrderInfo {...order} />
-          </div>
+      {/* Split layout: Vehicle info and Order info */}
+      <div className="vehicle-and-order">
+        <div className="details">
+          <VehicleInfo vehicleName={vehicle.name} version={vehicle.version} />
+          <VehicleOptions onOptionChange={handleOptionChange} />
         </div>
-      
+        <div className="order-info">
+          {order.length > 0 ? (
+            order.map((item, index) => (
+              <OrderInfo
+                key={index}
+                storeId={item.store_id}
+                customerId={item.customer_id}
+                orderDate={item.order_date}
+                deliveryDate={item.delivery_date}
+                modelId={item.model_id}
+                vehicleId={item.vehicle_id}
+              />
+            ))
+          ) : (
+            <p>Loading order information...</p>
+          )}
+        </div>
+      </div>
+
       {/* Buttons for Subscribe Now and Shopping Cart */}
       <div className="action-buttons">
         <button className="subscribe-btn">Subscribe Now</button>

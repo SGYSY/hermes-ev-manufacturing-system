@@ -101,6 +101,14 @@ const HomePage = () => {
     navigate('/privacy-policy'); // 跳转到 
     window.location.reload();
   };
+  const handleUserInfoClick = () => {
+    
+      navigate('/user-info');
+      window.location.reload();
+    
+  };
+  
+  
 
 
 
@@ -151,6 +159,12 @@ const HomePage = () => {
                 <li>
                   <button>Contact Us</button>
                 </li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>User</button>
+              <ul className="dropdown">
+                <li><button onClick={handleUserInfoClick}>Information</button></li>
               </ul>
             </li>
           </ul>

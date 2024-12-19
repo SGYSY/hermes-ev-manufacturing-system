@@ -137,7 +137,7 @@ const VehicleDetailPage = () => {
                 <li><button onClick={handleTermsOfServiceClick}>Terms of Service</button></li>
                 <li><button onClick={handlePrivacyPolicyClick}>Privacy Policy</button></li>
                 <li>
-                  <button>Contact Us</button>
+                  <button href="javascript:void(0);" id="contactUs">Contact Us</button>
                 </li>
               </ul>
             </li>

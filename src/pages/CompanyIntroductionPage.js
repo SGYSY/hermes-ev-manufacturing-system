@@ -137,7 +137,7 @@ const CompanyIntroductionPage = () => {
                 <li><button onClick={handleTermsOfServiceClick}>Terms of Service</button></li>
                 <li><button onClick={handlePrivacyPolicyClick}>Privacy Policy</button></li>
                 <li>
-                  <button>Contact Us</button>
+                <button href="javascript:void(0);" id="contactUs">Contact Us</button>
                 </li>
               </ul>
             </li>
@@ -183,9 +183,9 @@ const CompanyIntroductionPage = () => {
       <footer className="footer">
         <p>&copy; 2024 Hermes. All rights reserved.</p>
         <ul className="footer-links">
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Contact Us</a></li>
+          <li><button onClick={handlePrivacyPolicyClick}>Privacy Policy</button></li>
+          <li><button onClick={handleTermsOfServiceClick}>Terms of Service</button></li>
+          <li><button href="javascript:void(0);" id="contactUs">Contact Us</button></li>
         </ul>
       </footer>
     </div>

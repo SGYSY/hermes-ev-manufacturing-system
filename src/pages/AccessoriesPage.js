@@ -303,6 +303,139 @@ const AccessoriesPage = () => {
           </div>
         </section>
 
+        {/* 轮胎 */}
+        <section className="selection-section">
+          <h2>轮胎</h2>
+          <div className="options">
+            <div
+              className={`option ${selectedOptions["轮胎"] === "普通轮胎" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("轮胎", "普通轮胎", DefaultImage)}
+            >
+              <span className="title">普通轮胎</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+            <div
+              className={`option ${selectedOptions["轮胎"] === "冬季轮胎" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("轮胎", "冬季轮胎", DefaultImage)}
+            >
+              <span className="title">冬季轮胎</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+            <div
+              className={`option ${selectedOptions["轮胎"] === "运动轮胎" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("轮胎", "运动轮胎", DefaultImage)}
+            >
+              <span className="title">运动轮胎</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+            <div
+              className={`option ${selectedOptions["轮胎"] === "越野轮胎" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("轮胎", "越野轮胎", DefaultImage)}
+            >
+              <span className="title">越野轮胎</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 座椅 */}
+        <section className="selection-section">
+          <h2>座椅</h2>
+          <div className="options">
+            <div
+              className={`option ${selectedOptions["座椅"] === "皮革座椅" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("座椅", "皮革座椅", DefaultImage)}
+            >
+              <span className="title">皮革座椅</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+            <div
+              className={`option ${selectedOptions["座椅"] === "运动座椅" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("座椅", "运动座椅", DefaultImage)}
+            >
+              <span className="title">运动座椅</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+            <div
+              className={`option ${selectedOptions["座椅"] === "织物座椅" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("座椅", "织物座椅", DefaultImage)}
+            >
+              <span className="title">织物座椅</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+            <div
+              className={`option ${selectedOptions["座椅"] === "豪华座椅" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("座椅", "豪华座椅", DefaultImage)}
+            >
+              <span className="title">豪华座椅</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 导航 */}
+        <section className="selection-section">
+          <h2>导航</h2>
+          <div className="options">
+            <div
+              className={`option ${selectedOptions["导航"] === "北斗" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("导航", "北斗", DefaultImage)}
+            >
+              <span className="title">北斗</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+            <div
+              className={`option ${selectedOptions["导航"] === "GPS" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("导航", "GPS", DefaultImage)}
+            >
+              <span className="title">GPS</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+            <div
+              className={`option ${selectedOptions["导航"] === "伽利略" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("导航", "伽利略", DefaultImage)}
+            >
+              <span className="title">伽利略</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+            <div
+              className={`option ${selectedOptions["导航"] === "格洛纳斯" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("导航", "格洛纳斯", DefaultImage)}
+            >
+              <span className="title">格洛纳斯</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 内饰风格 */}
+        <section className="selection-section">
+          <h2>内饰风格</h2>
+          <div className="options">
+            <div
+              className={`option ${selectedOptions["内饰风格"] === "极简风格" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("内饰风格", "极简风格", DefaultImage)}
+            >
+              <span className="title">极简风格</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+            <div
+              className={`option ${selectedOptions["内饰风格"] === "奢华风格" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("内饰风格", "奢华风格", DefaultImage)}
+            >
+              <span className="title">奢华风格</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+            <div
+              className={`option ${selectedOptions["内饰风格"] === "运动风格" ? "selected" : ""}`}
+              onClick={() => handleOptionClick("内饰风格", "运动风格", DefaultImage)}
+            >
+              <span className="title">运动风格</span>
+              <p className="description">Description for Model 1</p>
+            </div>
+          </div>
+        </section>
+
         {/* 配置总结 */}
         <div className="summary">
           <h2>已选配置</h2>

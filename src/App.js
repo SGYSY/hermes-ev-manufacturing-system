@@ -56,7 +56,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/mainpage" element={<MainPage />} />
           <Route path="/accessories" element={<AccessoriesPage />} />
           <Route path="/company-introduction" element={<CompanyIntroductionPage />} />
           <Route path="/vehicle-detail" element={<VehicleDetailPage />} />
@@ -64,7 +64,7 @@ function App() {
           <Route path="/product-introduction" element={<ProductIntroductionPage />} />
           <Route path="/terms-of-service" element={<TermsOfServicePage />} />
           <Route path="/user-info" element={<UserInfoPage />} />
-          <Route path="/test" element={<TestAPI />} />
+          <Route path="/" element={<TestAPI />} />
           <Route path="/signin" element={<SignInSide />} /> 
           <Route path="/signup" element={<SignUp />} /> {/* 路由到 SignUp 页面 */}
           <Route path="/dashboard" element={<Dashboard />} /> {/* 添加新的 Dashboard 路由 */}

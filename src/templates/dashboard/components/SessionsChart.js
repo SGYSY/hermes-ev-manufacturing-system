@@ -7,6 +7,8 @@ import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { useEffect, useState } from 'react';
+import { getSalesData } from '../../../api'; // 引入 API 方法
 
 function AreaGradient({ color, id }) {
   return (
@@ -24,29 +26,40 @@ AreaGradient.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-function getDaysInMonth(month, year) {
-  const date = new Date(year, month, 0);
-  const monthName = date.toLocaleDateString('en-US', {
-    month: 'short',
-  });
-  const daysInMonth = date.getDate();
-  const days = [];
-  let i = 1;
-  while (days.length < daysInMonth) {
-    days.push(`${monthName} ${i}`);
-    i += 1;
-  }
-  return days;
-}
-
 export default function SessionsChart() {
   const theme = useTheme();
-  const data = getDaysInMonth(4, 2024);
+  const [salesData, setSalesData] = useState([]);
+  const [totalSales, setTotalSales] = useState(0);
 
-  const colorPalette = [
-    theme.palette.primary.light,
-    theme.palette.primary.main,
-    theme.palette.primary.dark,
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getSalesData();
+        const sales = response.data.data.sales_by_model;
+
+        // 转换 `month_sales` 字符串为数组
+        const formattedSales = sales.map((item) => ({
+          id: item.model_name,
+          label: item.model_name,
+          data: JSON.parse(item.month_sales),
+        }));
+
+        setSalesData(formattedSales);
+
+        // 计算总销售额
+        const total = sales.reduce((sum, model) => sum + model.annual_sales, 0);
+        setTotalSales(total);
+      } catch (error) {
+        console.error('Error fetching sales data:', error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const xAxisLabels = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
   ];
 
   return (
@@ -65,67 +78,23 @@ export default function SessionsChart() {
             }}
           >
             <Typography variant="h4" component="p">
-              13,277
+              {totalSales.toLocaleString()}
             </Typography>
             <Chip size="small" color="success" label="+35%" />
           </Stack>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            Sessions per day for the last 30 days
+            Monthly sales data by model
           </Typography>
         </Stack>
         <LineChart
-          colors={colorPalette}
           xAxis={[
             {
               scaleType: 'point',
-              data,
-              tickInterval: (index, i) => (i + 1) % 5 === 0,
+              data: xAxisLabels,
+              tickInterval: (index, i) => (i + 1) % 5 === 0, // 保持每五个月显示一个标签
             },
           ]}
-          series={[
-            {
-              id: 'direct',
-              label: 'Direct',
-              showMark: false,
-              curve: 'linear',
-              stack: 'total',
-              area: true,
-              stackOrder: 'ascending',
-              data: [
-                300, 900, 600, 1200, 1500, 1800, 2400, 2100, 2700, 3000, 1800, 3300,
-                3600, 3900, 4200, 4500, 3900, 4800, 5100, 5400, 4800, 5700, 6000,
-                6300, 6600, 6900, 7200, 7500, 7800, 8100,
-              ],
-            },
-            {
-              id: 'referral',
-              label: 'Referral',
-              showMark: false,
-              curve: 'linear',
-              stack: 'total',
-              area: true,
-              stackOrder: 'ascending',
-              data: [
-                500, 900, 700, 1400, 1100, 1700, 2300, 2000, 2600, 2900, 2300, 3200,
-                3500, 3800, 4100, 4400, 2900, 4700, 5000, 5300, 5600, 5900, 6200,
-                6500, 5600, 6800, 7100, 7400, 7700, 8000,
-              ],
-            },
-            {
-              id: 'organic',
-              label: 'Organic',
-              showMark: false,
-              curve: 'linear',
-              stack: 'total',
-              stackOrder: 'ascending',
-              data: [
-                1000, 1500, 1200, 1700, 1300, 2000, 2400, 2200, 2600, 2800, 2500,
-                3000, 3400, 3700, 3200, 3900, 4100, 3500, 4300, 4500, 4000, 4700,
-                5000, 5200, 4800, 5400, 5600, 5900, 6100, 6300,
-              ],
-              area: true,
-            },
-          ]}
+          series={salesData}
           height={250}
           margin={{ left: 50, right: 20, top: 20, bottom: 20 }}
           grid={{ horizontal: true }}

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useDrawingArea } from '@mui/x-charts/hooks';
@@ -9,47 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-
-import {
-  IndiaFlag,
-  UsaFlag,
-  BrazilFlag,
-  GlobeFlag,
-} from '../internals/components/CustomIcons';
-
-const data = [
-  { label: 'India', value: 50000 },
-  { label: 'USA', value: 35000 },
-  { label: 'Brazil', value: 10000 },
-  { label: 'Other', value: 5000 },
-];
-
-const countries = [
-  {
-    name: 'India',
-    value: 50,
-    flag: <IndiaFlag />,
-    color: 'hsl(220, 25%, 65%)',
-  },
-  {
-    name: 'USA',
-    value: 35,
-    flag: <UsaFlag />,
-    color: 'hsl(220, 25%, 45%)',
-  },
-  {
-    name: 'Brazil',
-    value: 10,
-    flag: <BrazilFlag />,
-    color: 'hsl(220, 25%, 30%)',
-  },
-  {
-    name: 'Other',
-    value: 5,
-    flag: <GlobeFlag />,
-    color: 'hsl(220, 25%, 20%)',
-  },
-];
+import { getProductionInfo } from '../../../api'; // 引入 API 方法
 
 const StyledText = styled('text', {
   shouldForwardProp: (prop) => prop !== 'variant',
@@ -59,30 +19,16 @@ const StyledText = styled('text', {
   fill: (theme.vars || theme).palette.text.secondary,
   variants: [
     {
-      props: {
-        variant: 'primary',
-      },
+      props: { variant: 'primary' },
       style: {
         fontSize: theme.typography.h5.fontSize,
-      },
-    },
-    {
-      props: ({ variant }) => variant !== 'primary',
-      style: {
-        fontSize: theme.typography.body2.fontSize,
-      },
-    },
-    {
-      props: {
-        variant: 'primary',
-      },
-      style: {
         fontWeight: theme.typography.h5.fontWeight,
       },
     },
     {
-      props: ({ variant }) => variant !== 'primary',
+      props: { variant: 'secondary' },
       style: {
+        fontSize: theme.typography.body2.fontSize,
         fontWeight: theme.typography.body2.fontWeight,
       },
     },
@@ -115,10 +61,29 @@ const colors = [
   'hsl(220, 20%, 65%)',
   'hsl(220, 20%, 42%)',
   'hsl(220, 20%, 35%)',
-  'hsl(220, 20%, 25%)',
 ];
 
-export default function ChartUserByCountry() {
+export default function ProductionPieChart() {
+  const [productionData, setProductionData] = useState([]);
+  const [totalProduction, setTotalProduction] = useState(0);
+
+  useEffect(() => {
+    // 从 API 获取生产数据
+    getProductionInfo()
+      .then((response) => {
+        const productionShare = response.data.data.production_share;
+        const total = productionShare.reduce(
+          (sum, factory) => sum + parseInt(factory.total_quantity_produced, 10),
+          0
+        );
+        setProductionData(productionShare);
+        setTotalProduction(total);
+      })
+      .catch((error) => {
+        console.error('获取生产数据失败:', error);
+      });
+  }, []);
+
   return (
     <Card
       variant="outlined"
@@ -126,7 +91,7 @@ export default function ChartUserByCountry() {
     >
       <CardContent>
         <Typography component="h2" variant="subtitle2">
-          Users by country
+          Production by Factory
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <PieChart
@@ -139,7 +104,10 @@ export default function ChartUserByCountry() {
             }}
             series={[
               {
-                data,
+                data: productionData.map((factory) => ({
+                  label: factory.factory_name,
+                  value: parseInt(factory.total_quantity_produced, 10),
+                })),
                 innerRadius: 75,
                 outerRadius: 100,
                 paddingAngle: 0,
@@ -152,16 +120,18 @@ export default function ChartUserByCountry() {
               legend: { hidden: true },
             }}
           >
-            <PieCenterLabel primaryText="98.5K" secondaryText="Total" />
+            <PieCenterLabel
+              primaryText={`${totalProduction}`}
+              secondaryText="Total Production"
+            />
           </PieChart>
         </Box>
-        {countries.map((country, index) => (
+        {productionData.map((factory, index) => (
           <Stack
             key={index}
             direction="row"
             sx={{ alignItems: 'center', gap: 2, pb: 2 }}
           >
-            {country.flag}
             <Stack sx={{ gap: 1, flexGrow: 1 }}>
               <Stack
                 direction="row"
@@ -172,19 +142,22 @@ export default function ChartUserByCountry() {
                 }}
               >
                 <Typography variant="body2" sx={{ fontWeight: '500' }}>
-                  {country.name}
+                  {factory.factory_name}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  {country.value}%
+                  {factory.total_quantity_produced}
                 </Typography>
               </Stack>
               <LinearProgress
                 variant="determinate"
-                aria-label="Number of users by country"
-                value={country.value}
+                aria-label="Factory production percentage"
+                value={
+                  (parseInt(factory.total_quantity_produced, 10) / totalProduction) *
+                  100
+                }
                 sx={{
                   [`& .${linearProgressClasses.bar}`]: {
-                    backgroundColor: country.color,
+                    backgroundColor: colors[index % colors.length],
                   },
                 }}
               />

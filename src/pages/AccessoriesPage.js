@@ -164,6 +164,12 @@ const AccessoriesPage = () => {
     navigate('/privacy-policy'); // 跳转到 
     window.location.reload();
   };
+  const handleUserInfoClick = () => {
+    
+    navigate('/user-info');
+    window.location.reload();
+  
+};
 
   return (
     <div className="container">
@@ -211,6 +217,12 @@ const AccessoriesPage = () => {
                 <li>
                 <button href="javascript:void(0);" id="contactUs">Contact Us</button>
                 </li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>User</button>
+              <ul className="dropdown">
+                <li><button onClick={handleUserInfoClick}>Information</button></li>
               </ul>
             </li>
           </ul>

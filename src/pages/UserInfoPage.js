@@ -47,7 +47,7 @@ const UserInfoPage = () => {
           }
       
           // 使用 alert 显示标题和详细错误信息
-          alert(`${errorTitle}:\n${errorMessage}`);
+          //alert(`${errorTitle}:\n${errorMessage}`);
           setError(errorMessage); // 设置错误状态（用于组件内显示）
         } finally {
           setLoading(false);

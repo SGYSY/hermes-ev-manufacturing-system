@@ -1,20 +1,12 @@
 import React, { useEffect } from 'react';
 import './PrivacyPolicyPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const PrivacyPolicyPage = () => {
+  const navigate = useNavigate(); // 初始化 useNavigate
   useEffect(() => {
-    // Section展开/折叠交互
-    const sections = document.querySelectorAll('section');
-    sections.forEach((section) => {
-      const h2 = section.querySelector('h2');
-      if (h2) {
-        h2.addEventListener('click', () => {
-          section.classList.toggle('expanded');
-        });
-      }
-    });
 
-    // 导航栏下拉菜单交互
+    // 添加下拉菜单和遮罩层的交互逻辑
     const navbarItems = document.querySelectorAll('.navbar-item');
     navbarItems.forEach((item) => {
       const overlay = document.createElement('div');
@@ -23,11 +15,14 @@ const PrivacyPolicyPage = () => {
 
       item.addEventListener('mouseenter', () => {
         const dropdown = item.querySelector('.dropdown');
-        dropdown.style.display = 'block';
+        if(dropdown){
+          dropdown.style.display = 'block';
         setTimeout(() => {
           dropdown.style.opacity = '1';
           dropdown.style.transform = 'translateY(0)';
         }, 50);
+        }
+        
 
         overlay.style.display = 'block';
         setTimeout(() => {
@@ -37,19 +32,19 @@ const PrivacyPolicyPage = () => {
 
       item.addEventListener('mouseleave', () => {
         const dropdown = item.querySelector('.dropdown');
-        dropdown.style.opacity = '0';
+        if(dropdown){
+          dropdown.style.opacity = '0';
         dropdown.style.transform = 'translateY(-10px)';
         setTimeout(() => {
           dropdown.style.display = 'none';
         }, 300);
-
+        }
         overlay.style.opacity = '0';
         setTimeout(() => {
           overlay.style.display = 'none';
         }, 300);
       });
     });
-
     // "Contact Us" 弹窗
     const contactUs = document.getElementById('contactUs');
     if (contactUs) {
@@ -64,26 +59,86 @@ const PrivacyPolicyPage = () => {
     }
   }, []);
 
+  // 定义跳转函数
+  const handleHomeClick = () => {
+    navigate('/'); // 跳转到 
+    window.location.reload();
+  };
+  const handleBuyNowClick = () => {
+    navigate('/accessories'); // 跳转到 AccessoriesPage
+    window.location.reload();
+  };
+  const handleLearnMoreClick = () => {
+    navigate('/vehicle-detail'); // 跳转到 
+    window.location.reload();
+  };
+  const handleProductDataClick = () => {
+    navigate('/product-introduction'); // 跳转到 
+    window.location.reload();
+  };
+  const handlePurchaseClick = () => {
+    navigate('/accessories'); // 跳转到 
+    window.location.reload();
+  };
+  const handleModelClick = () => {
+    navigate('/vehicle-detail'); // 跳转到 
+    window.location.reload();
+  };
+  const handleTermsOfServiceClick = () => {
+    navigate('/terms-of-service'); // 跳转到 
+    window.location.reload();
+  };
+  const handlePrivacyPolicyClick = () => {
+    navigate('/privacy-policy'); // 跳转到 
+    window.location.reload();
+  };
+
   return (
     <div>
       {/* Header Section */}
       <header className="header">
         <nav className="navbar">
           <ul className="navbar-list">
-            <li className="navbar-item"><a href="/">Home</a></li>
             <li className="navbar-item">
-              <a href="#">Model1</a>
+              <button onClick={handleHomeClick}>Home</button>
+            </li>
+            <li className="navbar-item">
+              <button>Model1</button>
               <ul className="dropdown">
-                <li><a href="#">Product Data</a></li>
-                <li><a href="#">Purchase</a></li>
+                <li><button onClick={handleProductDataClick} >Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
               </ul>
             </li>
             <li className="navbar-item">
-              <a href="#">Company</a>
+              <button>Model2</button>
               <ul className="dropdown">
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#" id="contactUs">Contact Us</a></li>
+                <li><button onClick={handleProductDataClick}>Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Model3</button>
+              <ul className="dropdown">
+                <li><button onClick={handleProductDataClick}>Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Products</button>
+              <ul className="dropdown">
+                <li><button onClick={handleModelClick}>Model1</button></li>
+                <li><button onClick={handleModelClick}>Model2</button></li>
+                <li><button onClick={handleModelClick}>Model3</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Company</button>
+              <ul className="dropdown">
+                <li><button onClick={handleTermsOfServiceClick}>Terms of Service</button></li>
+                <li><button onClick={handlePrivacyPolicyClick}>Privacy Policy</button></li>
+                <li>
+                  <button>Contact Us</button>
+                </li>
               </ul>
             </li>
           </ul>

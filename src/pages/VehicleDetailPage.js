@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import './VehicleDetailPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const VehicleDetailPage = () => {
+  const navigate = useNavigate(); // 初始化 useNavigate
   useEffect(() => {
     // 添加下拉菜单和遮罩层的交互逻辑
     const navbarItems = document.querySelectorAll('.navbar-item');
@@ -12,11 +14,14 @@ const VehicleDetailPage = () => {
 
       item.addEventListener('mouseenter', () => {
         const dropdown = item.querySelector('.dropdown');
-        dropdown.style.display = 'block';
+        if(dropdown){
+          dropdown.style.display = 'block';
         setTimeout(() => {
           dropdown.style.opacity = '1';
           dropdown.style.transform = 'translateY(0)';
         }, 50);
+        }
+        
 
         overlay.style.display = 'block';
         setTimeout(() => {
@@ -26,12 +31,13 @@ const VehicleDetailPage = () => {
 
       item.addEventListener('mouseleave', () => {
         const dropdown = item.querySelector('.dropdown');
-        dropdown.style.opacity = '0';
+        if(dropdown){
+          dropdown.style.opacity = '0';
         dropdown.style.transform = 'translateY(-10px)';
         setTimeout(() => {
           dropdown.style.display = 'none';
         }, 300);
-
+        }
         overlay.style.opacity = '0';
         setTimeout(() => {
           overlay.style.display = 'none';
@@ -53,25 +59,86 @@ const VehicleDetailPage = () => {
     }
   }, []);
 
+  // 定义跳转函数
+  const handleHomeClick = () => {
+    navigate('/'); // 跳转到 
+    window.location.reload();
+  };
+  const handleBuyNowClick = () => {
+    navigate('/accessories'); // 跳转到 AccessoriesPage
+    window.location.reload();
+  };
+  const handleLearnMoreClick = () => {
+    navigate('/vehicle-detail'); // 跳转到 
+    window.location.reload();
+  };
+  const handleProductDataClick = () => {
+    navigate('/product-introduction'); // 跳转到 
+    window.location.reload();
+  };
+  const handlePurchaseClick = () => {
+    navigate('/accessories'); // 跳转到 
+    window.location.reload();
+  };
+  const handleModelClick = () => {
+    navigate('/vehicle-detail'); // 跳转到 
+    window.location.reload();
+  };
+  const handleTermsOfServiceClick = () => {
+    navigate('/terms-of-service'); // 跳转到 
+    window.location.reload();
+  };
+  const handlePrivacyPolicyClick = () => {
+    navigate('/privacy-policy'); // 跳转到 
+    window.location.reload();
+  };
+
   return (
     <div>
       {/* Header Section */}
       <header className="header">
         <nav className="navbar">
           <ul className="navbar-list">
-            <li className="navbar-item"><a href="/">Home</a></li>
             <li className="navbar-item">
-              <a href="#">Model1</a>
+              <button onClick={handleHomeClick}>Home</button>
+            </li>
+            <li className="navbar-item">
+              <button>Model1</button>
               <ul className="dropdown">
-                <li><a href="#">Product Data</a></li>
-                <li><a href="#">Purchase</a></li>
+                <li><button onClick={handleProductDataClick} >Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
               </ul>
             </li>
             <li className="navbar-item">
-              <a href="#">Model2</a>
+              <button>Model2</button>
               <ul className="dropdown">
-                <li><a href="#">Product Data</a></li>
-                <li><a href="#">Purchase</a></li>
+                <li><button onClick={handleProductDataClick}>Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Model3</button>
+              <ul className="dropdown">
+                <li><button onClick={handleProductDataClick}>Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Products</button>
+              <ul className="dropdown">
+                <li><button onClick={handleModelClick}>Model1</button></li>
+                <li><button onClick={handleModelClick}>Model2</button></li>
+                <li><button onClick={handleModelClick}>Model3</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Company</button>
+              <ul className="dropdown">
+                <li><button onClick={handleTermsOfServiceClick}>Terms of Service</button></li>
+                <li><button onClick={handlePrivacyPolicyClick}>Privacy Policy</button></li>
+                <li>
+                  <button>Contact Us</button>
+                </li>
               </ul>
             </li>
           </ul>
@@ -138,9 +205,9 @@ const VehicleDetailPage = () => {
       <footer className="footer">
         <p>&copy; 2024 Hermes. All rights reserved.</p>
         <ul className="footer-links">
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Contact Us</a></li>
+        <li><button onClick={handlePrivacyPolicyClick}>Provate Policy</button></li>
+          <li><button onClick={handleTermsOfServiceClick}>Terms of service</button></li>
+          <li><button href="javascript:void(0);" id="contactUs">Contact Us</button></li>
         </ul>
       </footer>
     </div>

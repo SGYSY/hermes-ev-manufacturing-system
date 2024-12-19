@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './ProductIntroductionPage.css';
+import { useNavigate } from 'react-router-dom';
 
 // 动态导入图片资源
 import Model1Image1 from '../assets/Model1-1.png';
@@ -13,6 +14,7 @@ import Model3Image2 from '../assets/Model3-2.png';
 import Model3Image3 from '../assets/Model3-3.png';
 
 const ProductIntroductionPage = () => {
+  const navigate = useNavigate(); // 初始化 useNavigate
   const models = [
     {
       name: 'Model 1',
@@ -55,7 +57,7 @@ const ProductIntroductionPage = () => {
       showImage(currentIndex);
     });
 
-    // Dropdown functionality
+    // 添加下拉菜单和遮罩层的交互逻辑
     const navbarItems = document.querySelectorAll('.navbar-item');
     navbarItems.forEach((item) => {
       const overlay = document.createElement('div');
@@ -64,34 +66,34 @@ const ProductIntroductionPage = () => {
 
       item.addEventListener('mouseenter', () => {
         const dropdown = item.querySelector('.dropdown');
-        if (dropdown) {
+        if(dropdown){
           dropdown.style.display = 'block';
-          setTimeout(() => {
-            dropdown.style.opacity = '1';
-            dropdown.style.transform = 'translateY(0)';
-          }, 50);
-
-          overlay.style.display = 'block';
-          setTimeout(() => {
-            overlay.style.opacity = '1';
-          }, 50);
+        setTimeout(() => {
+          dropdown.style.opacity = '1';
+          dropdown.style.transform = 'translateY(0)';
+        }, 50);
         }
+        
+
+        overlay.style.display = 'block';
+        setTimeout(() => {
+          overlay.style.opacity = '1';
+        }, 50);
       });
 
       item.addEventListener('mouseleave', () => {
         const dropdown = item.querySelector('.dropdown');
-        if (dropdown) {
+        if(dropdown){
           dropdown.style.opacity = '0';
-          dropdown.style.transform = 'translateY(-10px)';
-          setTimeout(() => {
-            dropdown.style.display = 'none';
-          }, 300);
-
-          overlay.style.opacity = '0';
-          setTimeout(() => {
-            overlay.style.display = 'none';
-          }, 300);
+        dropdown.style.transform = 'translateY(-10px)';
+        setTimeout(() => {
+          dropdown.style.display = 'none';
+        }, 300);
         }
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 300);
       });
     });
 
@@ -109,6 +111,40 @@ const ProductIntroductionPage = () => {
     }
   }, []);
 
+  // 定义跳转函数
+  const handleHomeClick = () => {
+    navigate('/'); // 跳转到 
+    window.location.reload();
+  };
+  const handleBuyNowClick = () => {
+    navigate('/accessories'); // 跳转到 AccessoriesPage
+    window.location.reload();
+  };
+  const handleLearnMoreClick = () => {
+    navigate('/vehicle-detail'); // 跳转到 
+    window.location.reload();
+  };
+  const handleProductDataClick = () => {
+    navigate('/product-introduction'); // 跳转到 
+    window.location.reload();
+  };
+  const handlePurchaseClick = () => {
+    navigate('/accessories'); // 跳转到 
+    window.location.reload();
+  };
+  const handleModelClick = () => {
+    navigate('/vehicle-detail'); // 跳转到 
+    window.location.reload();
+  };
+  const handleTermsOfServiceClick = () => {
+    navigate('/terms-of-service'); // 跳转到 
+    window.location.reload();
+  };
+  const handlePrivacyPolicyClick = () => {
+    navigate('/privacy-policy'); // 跳转到 
+    window.location.reload();
+  };
+
   return (
     <div>
       {/* Background Gradient */}
@@ -118,20 +154,46 @@ const ProductIntroductionPage = () => {
       <header className="header">
         <nav className="navbar">
           <ul className="navbar-list">
-            <li className="navbar-item"><a href="/">Home</a></li>
             <li className="navbar-item">
-              <a href="#">Model1</a>
+              <button onClick={handleHomeClick}>Home</button>
+            </li>
+            <li className="navbar-item">
+              <button>Model1</button>
               <ul className="dropdown">
-                <li><a href="#">Product Data</a></li>
-                <li><a href="#">Purchase</a></li>
+                <li><button onClick={handleProductDataClick} >Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
               </ul>
             </li>
             <li className="navbar-item">
-              <a href="#">Company</a>
+              <button>Model2</button>
               <ul className="dropdown">
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#" id="contactUs">Contact Us</a></li>
+                <li><button onClick={handleProductDataClick}>Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Model3</button>
+              <ul className="dropdown">
+                <li><button onClick={handleProductDataClick}>Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Products</button>
+              <ul className="dropdown">
+                <li><button onClick={handleModelClick}>Model1</button></li>
+                <li><button onClick={handleModelClick}>Model2</button></li>
+                <li><button onClick={handleModelClick}>Model3</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Company</button>
+              <ul className="dropdown">
+                <li><button onClick={handleTermsOfServiceClick}>Terms of Service</button></li>
+                <li><button onClick={handlePrivacyPolicyClick}>Privacy Policy</button></li>
+                <li>
+                  <button>Contact Us</button>
+                </li>
               </ul>
             </li>
           </ul>

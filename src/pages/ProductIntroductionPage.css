@@ -44,7 +44,7 @@
     width: 100%;
     z-index: 1000; /* Higher value than the gradient-bg */
     background-color: #111; /* Keep original header color */
-    padding: 20px 0;
+    padding: 10px 0;
   }
   
   .navbar {
@@ -352,3 +352,28 @@
     border-radius: 8px;
     overflow: hidden;
   }
+
+/* 仅针对 button 标签的样式 */
+button {
+  padding: 4px 16px; /* 减小内边距，按钮更紧凑 */
+  font-size: 1rem; /* 调整字体大小，更适合更小的按钮 */
+  color: white; /* 白色字体 */
+  background-color: transparent; /* 默认没有背景 */
+  border: 1px solid transparent; /* 默认边框为透明 */
+  border-radius: 5px; /* 长方形按钮，适当圆角 */
+  cursor: pointer; /* 鼠标悬停时变为指针 */
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* 背景色、边框和字体颜色过渡 */
+}
+
+/* 按钮悬停时的效果 */
+button:hover {
+  background-color: #e0e0e0; /* 悬停时背景变为灰色 */
+  border-color: #888; /* 悬停时边框变为灰色 */
+  color: black; /* 悬停时字体变为黑色 */
+}
+
+/* 按钮聚焦时的效果（可选，提升可访问性） */
+button:focus {
+  outline: none; /* 移除默认的焦点框 */
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); /* 添加聚焦时的阴影效果 */
+}

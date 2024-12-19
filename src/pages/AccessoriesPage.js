@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AccessoriesPage.css';
+import { useNavigate } from 'react-router-dom';
 
 // 导入图片资源
 import DefaultImage from '../assets/default.png';
@@ -13,11 +14,51 @@ import BlueCarImage from '../assets/blue-car.png';
 import SilverCarImage from '../assets/silvery-car.png';
 
 const AccessoriesPage = () => {
+  const navigate = useNavigate(); // 初始化 useNavigate
   const [previewSrc, setPreviewSrc] = useState(DefaultImage); // 默认预览图片
   const [selectedOptions, setSelectedOptions] = useState({});
   const [isPurchaseDisabled, setIsPurchaseDisabled] = useState(true);
 
   useEffect(() => {
+    // 添加下拉菜单和遮罩层的交互逻辑
+    const navbarItems = document.querySelectorAll('.navbar-item');
+    navbarItems.forEach((item) => {
+      const overlay = document.createElement('div');
+      overlay.classList.add('overlay');
+      document.body.appendChild(overlay);
+
+      item.addEventListener('mouseenter', () => {
+        const dropdown = item.querySelector('.dropdown');
+        if(dropdown){
+          dropdown.style.display = 'block';
+        setTimeout(() => {
+          dropdown.style.opacity = '1';
+          dropdown.style.transform = 'translateY(0)';
+        }, 50);
+        }
+        
+
+        overlay.style.display = 'block';
+        setTimeout(() => {
+          overlay.style.opacity = '1';
+        }, 50);
+      });
+
+      item.addEventListener('mouseleave', () => {
+        const dropdown = item.querySelector('.dropdown');
+        if(dropdown){
+          dropdown.style.opacity = '0';
+        dropdown.style.transform = 'translateY(-10px)';
+        setTimeout(() => {
+          dropdown.style.display = 'none';
+        }, 300);
+        }
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 300);
+      });
+    });
     updatePurchaseButtonState();
   }, [selectedOptions]);
 
@@ -35,11 +76,45 @@ const AccessoriesPage = () => {
   };
 
   // 处理购买按钮点击
-  const handlePurchaseClick = () => {
+  const handleSubmitPurchaseClick = () => {
     const summary = Object.entries(selectedOptions)
       .map(([key, value]) => `${key}: ${value}`)
       .join("\n");
     alert(`你已选择以下配置：\n${summary}`);
+  };
+
+  // 定义跳转函数
+  const handleHomeClick = () => {
+    navigate('/'); // 跳转到 
+    window.location.reload();
+  };
+  const handleBuyNowClick = () => {
+    navigate('/accessories'); // 跳转到 AccessoriesPage
+    window.location.reload();
+  };
+  const handleLearnMoreClick = () => {
+    navigate('/vehicle-detail'); // 跳转到 
+    window.location.reload();
+  };
+  const handleProductDataClick = () => {
+    navigate('/product-introduction'); // 跳转到 
+    window.location.reload();
+  };
+  const handlePurchaseClick = () => {
+    navigate('/accessories'); // 跳转到 
+    window.location.reload();
+  };
+  const handleModelClick = () => {
+    navigate('/vehicle-detail'); // 跳转到 
+    window.location.reload();
+  };
+  const handleTermsOfServiceClick = () => {
+    navigate('/terms-of-service'); // 跳转到 
+    window.location.reload();
+  };
+  const handlePrivacyPolicyClick = () => {
+    navigate('/privacy-policy'); // 跳转到 
+    window.location.reload();
   };
 
   return (
@@ -48,19 +123,46 @@ const AccessoriesPage = () => {
       <header className="header">
         <nav className="navbar">
           <ul className="navbar-list">
-            <li className="navbar-item"><a href="/">Home</a></li>
             <li className="navbar-item">
-              <a href="#">Model1</a>
+              <button onClick={handleHomeClick}>Home</button>
+            </li>
+            <li className="navbar-item">
+              <button>Model1</button>
               <ul className="dropdown">
-                <li><a href="#">Product Data</a></li>
-                <li><a href="#">Purchase</a></li>
+                <li><button onClick={handleProductDataClick} >Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
               </ul>
             </li>
             <li className="navbar-item">
-              <a href="#">Model2</a>
+              <button>Model2</button>
               <ul className="dropdown">
-                <li><a href="#">Product Data</a></li>
-                <li><a href="#">Purchase</a></li>
+                <li><button onClick={handleProductDataClick}>Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Model3</button>
+              <ul className="dropdown">
+                <li><button onClick={handleProductDataClick}>Product Data</button></li>
+                <li><button onClick={handlePurchaseClick}>Purchase</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Products</button>
+              <ul className="dropdown">
+                <li><button onClick={handleModelClick}>Model1</button></li>
+                <li><button onClick={handleModelClick}>Model2</button></li>
+                <li><button onClick={handleModelClick}>Model3</button></li>
+              </ul>
+            </li>
+            <li className="navbar-item">
+              <button>Company</button>
+              <ul className="dropdown">
+                <li><button onClick={handleTermsOfServiceClick}>Terms of Service</button></li>
+                <li><button onClick={handlePrivacyPolicyClick}>Privacy Policy</button></li>
+                <li>
+                  <button>Contact Us</button>
+                </li>
               </ul>
             </li>
           </ul>
@@ -154,7 +256,7 @@ const AccessoriesPage = () => {
           <button
             className="purchase-button"
             disabled={isPurchaseDisabled}
-            onClick={handlePurchaseClick}
+            onClick={handleSubmitPurchaseClick}
           >
             立即购买
           </button>

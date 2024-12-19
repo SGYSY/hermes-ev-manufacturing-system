@@ -11,7 +11,6 @@ import HighlightedCard from './HighlightedCard';
 import PageViewsBarChart from './PageViewsBarChart';
 import SessionsChart from './SessionsChart';
 import StatCard from './StatCard';
-import CreateOrder from './CreateOrder';
 
 const data = [
   {
@@ -50,13 +49,22 @@ export default function MainGrid() {
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
       {/* cards */}
+      <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
+        Overview
+      </Typography>
       <Grid
         container
         spacing={2}
         columns={12}
         sx={{ mb: (theme) => theme.spacing(2) }}
       >
-
+      
+        <Grid size={{ xs: 12, md: 6 }}>
+          <SessionsChart />
+        </Grid>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <PageViewsBarChart />
+        </Grid>
       </Grid>
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Details
@@ -65,13 +73,13 @@ export default function MainGrid() {
         <Grid size={{ xs: 12, lg: 9 }}>
           <CustomizedDataGrid />
         </Grid>
-        <Grid xs={12} md={4}>
-          <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
-            Create Order
-          </Typography>
-          <CreateOrder />
+        <Grid size={{ xs: 12, lg: 3 }}>
+          <Stack gap={2} direction={{ xs: 'column', sm: 'row', lg: 'column' }}>
+            <ChartUserByCountry />
+          </Stack>
         </Grid>
       </Grid>
+      <Copyright sx={{ my: 4 }} />
     </Box>
   );
 }

@@ -1,13 +1,13 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useTheme } from '@mui/material/styles';
+import { getVehicleInventory } from '../../../api';
 
-export default function PageViewsBarChart() {
+export default function VehicleInventoryChart() {
   const theme = useTheme();
   const colorPalette = [
     (theme.vars || theme).palette.primary.dark,
@@ -15,66 +15,69 @@ export default function PageViewsBarChart() {
     (theme.vars || theme).palette.primary.light,
   ];
 
+  const [inventoryData, setInventoryData] = useState([]);
+  const [chartData, setChartData] = useState({ xAxisData: [], series: [] });
+
+  useEffect(() => {
+    getVehicleInventory()
+      .then((response) => {
+        if (response.data.status === 'success') {
+          const data = response.data.data.inventory_data;
+          processInventoryData(data);
+        } else {
+          console.error('Failed to fetch inventory data:', response.data.message);
+        }
+      })
+      .catch((error) => console.error('Error fetching inventory data:', error));
+  }, []);
+
+  const processInventoryData = (data) => {
+    const modelIds = [...new Set(data.map((item) => item.model_id))];
+    const locations = [...new Set(data.map((item) => item.warehouse_location))];
+
+    const series = modelIds.map((modelId) => {
+      return {
+        id: `model-${modelId}`,
+        label: `Model ${modelId}`,
+        data: locations.map((location) => {
+          const matchingItem = data.find(
+            (item) => item.model_id === modelId && item.warehouse_location === location
+          );
+          return matchingItem ? parseInt(matchingItem.total_stock, 10) : 0;
+        }),
+        stack: 'inventory',
+      };
+    });
+
+    setChartData({ xAxisData: locations, series });
+  };
+
   return (
     <Card variant="outlined" sx={{ width: '100%' }}>
       <CardContent>
         <Typography component="h2" variant="subtitle2" gutterBottom>
-          Page views and downloads
+          Vehicle Inventory
         </Typography>
         <Stack sx={{ justifyContent: 'space-between' }}>
-          <Stack
-            direction="row"
-            sx={{
-              alignContent: { xs: 'center', sm: 'flex-start' },
-              alignItems: 'center',
-              gap: 1,
-            }}
-          >
-            <Typography variant="h4" component="p">
-              1.3M
-            </Typography>
-            <Chip size="small" color="error" label="-8%" />
-          </Stack>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            Page views and downloads for the last 6 months
+            Total inventory distribution across warehouses
           </Typography>
         </Stack>
         <BarChart
           borderRadius={8}
           colors={colorPalette}
-          xAxis={[
-            {
-              scaleType: 'band',
-              categoryGapRatio: 0.5,
-              data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-            },
-          ]}
-          series={[
-            {
-              id: 'page-views',
-              label: 'Page views',
-              data: [2234, 3872, 2998, 4125, 3357, 2789, 2998],
-              stack: 'A',
-            },
-            {
-              id: 'downloads',
-              label: 'Downloads',
-              data: [3098, 4215, 2384, 2101, 4752, 3593, 2384],
-              stack: 'A',
-            },
-            {
-              id: 'conversions',
-              label: 'Conversions',
-              data: [4051, 2275, 3129, 4693, 3904, 2038, 2275],
-              stack: 'A',
-            },
-          ]}
+          xAxis={[{
+            scaleType: 'band',
+            categoryGapRatio: 0.5,
+            data: chartData.xAxisData,
+          }]}
+          series={chartData.series}
           height={250}
           margin={{ left: 50, right: 0, top: 20, bottom: 20 }}
           grid={{ horizontal: true }}
           slotProps={{
             legend: {
-              hidden: true,
+              hidden: false,
             },
           }}
         />

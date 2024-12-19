@@ -50,6 +50,7 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import ProductIntroductionPage from './pages/ProductIntroductionPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
 import UserInfoPage from './pages/UserInfoPage';
+import Dashboard_supplier from './templates/dashboard_supplier/Dashboard_supplier'; // 导入 Dashboard 组件
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} /> {/* 路由到 SignUp 页面 */}
           <Route path="/dashboard" element={<Dashboard />} /> {/* 添加新的 Dashboard 路由 */}
           <Route path="/dashboard_staff" element={<Dashboard_staff />} /> {/* 添加新的 Dashboard 路由 */}
+          <Route path="/dashboard_supplier" element={<Dashboard_supplier />} /> {/* 添加新的 Dashboard 路由 */}
         </Routes>
       </div>
     </Router>

@@ -7,13 +7,13 @@ export default function CustomizedDataGrid() {
   const [columns] = useState([
     { field: 'store_id', headerName: 'Store ID', flex: 1 },
     { field: 'order_id', headerName: 'Order ID', flex: 1 },
-    { field: 'order_date', headerName: 'Order Date', flex: 1 },
-    { field: 'delivery_date', headerName: 'Delivery Date', flex: 1 },
-    { field: 'total_amount', headerName: 'Total Amount', flex: 1 },
-    { field: 'customer_id', headerName: 'Customer ID', flex: 1 },
-    { field: 'customer_name', headerName: 'Customer Name', flex: 1 },
-    { field: 'vehicle_id', headerName: 'Vehicle ID', flex: 1 },
-    { field: 'vehicle_price', headerName: 'Vehicle Price', flex: 1 },
+    { field: 'order_date', headerName: 'Order Date', flex: 2 },
+    { field: 'delivery_date', headerName: 'Delivery Date', flex: 2 },
+    { field: 'total_amount', headerName: 'Total Amount', flex: 2 },
+    { field: 'customer_id', headerName: 'Customer ID', flex: 2 },
+    { field: 'customer_name', headerName: 'Customer Name', flex: 2 },
+    { field: 'vehicle_id', headerName: 'Vehicle ID', flex: 2 },
+    { field: 'vehicle_price', headerName: 'Vehicle Price', flex: 2 },
   ]);
 
   useEffect(() => {

@@ -123,19 +123,44 @@ const AccessoriesPage = () => {
       "Sporty Style": "3",
     };
   
-    // 用户 ID
-    const userId = localStorage.getItem('customer_id');
-  
-    // 动态生成 order_id
-    const orderId = `${ModelMap[Model]}${ColorMap[Color]}${TiresMap[Tires]}${SeatsMap[Seats]}${NavigationMap[Navigation]}${StyleMap[Style]}${userId}`;
-  
+    const userId = parseInt(localStorage.getItem('customer_id'), 10); // 转换为整数
+
+// 动态生成 order_id
+    const currentYear = new Date().getFullYear(); // 获取当前年份
+    const randomThreeDigitNumber = Math.floor(100 + Math.random() * 900); // 生成 100 到 999 的随机三位数
+    let orderIdString = `${ModelMap[Model]}${ColorMap[Color]}${TiresMap[Tires]}${SeatsMap[Seats]}${NavigationMap[Navigation]}${StyleMap[Style]}${userId}${randomThreeDigitNumber}`;
+
+    // 去掉非数字部分并转换为整数
+    let orderId = parseInt(orderIdString.replace(/\D/g, ''), 10); // 将非数字字符替换为空字符串，并转换为整数
+
+    // 检查 orderId 是否在安全整数范围内，如果超出则删除最后一位，直到符合范围为止
+    while (orderId > Number.MAX_SAFE_INTEGER) {
+      orderIdString = orderIdString.slice(0, -1); // 删除字符串的最后一位
+      orderId = parseInt(orderIdString.replace(/\D/g, ''), 10); // 重新转换为整数
+    }
+
+    // 获取当前日期
+    const currentDate = new Date();
+
+    // 格式化日期为字符串（YYYY-MM-DD）
+    const formatDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从 0 开始，需要加 1，并确保是两位数
+      const day = String(date.getDate()).padStart(2, '0'); // 确保是两位数
+      return `${year}-${month}-${day}`;
+    };
+
+    // 动态生成日期
+    const orderDate = formatDate(currentDate); // 当前日期
+    const deliveryDate = formatDate(new Date(currentDate.getTime() + 15 * 24 * 60 * 60 * 1000)); // 当前日期加 15 天
+
     // 模拟订单数据
     const orderData = {
-      order_id: orderId, // 使用动态生成的 order_id
-      customer_id: 2,
-      store_id: 2,
-      order_date: "2024-12-17",
-      delivery_date: "2024-12-25",
+      order_id: orderId, // 使用动态生成并转换为整数的 order_id
+      customer_id: userId, // 确保 customer_id 是整数
+      store_id: 1,
+      order_date: orderDate, // 使用动态生成的当前日期
+      delivery_date: deliveryDate, // 使用动态生成的加 15 天的日期
       total_amount: "999.99",
       status: "Completed",
     };
@@ -143,7 +168,7 @@ const AccessoriesPage = () => {
     try {
       alert(`订单数据：\n${JSON.stringify(orderData, null, 2)}`);
       const response = await axios.post(
-        "http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/salesman.php/createOrder/2",
+        "http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/salesman.php/createOrder/1",
         orderData
       );
       alert(`返回数据：\n${JSON.stringify(response.data, null, 2)}`);

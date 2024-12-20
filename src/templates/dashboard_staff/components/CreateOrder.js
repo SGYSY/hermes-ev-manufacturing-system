@@ -67,7 +67,18 @@ const CreateOrder = () => {
         status: orderData.status, // 保留状态为字符串
       };
       alert(`订单数据：\n${JSON.stringify(formattedData, null, 2)}`);
-      const response = await createOrder(salesmanId, formattedData);
+      const response = await axios.post(
+        `http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/salesman.php/createOrder/${salesmanId}`,
+        formattedData,
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      
+      console.log('Response:', response.data);
+      
       console.log("Order created:", response);  // 查看完整的响应数据
   
       if (response) {

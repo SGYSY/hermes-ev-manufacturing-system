@@ -38,105 +38,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
 
 
 export default function SignInCard() {
-  const handleStaffLogin = async () => {
-    const email = document.getElementById('email').value.trim(); // 获取输入的Email作为employee_id
-    const password = document.getElementById('password').value;
   
-    // 构建请求体
-    const requestBody = {
-      employee_id: email, // 直接使用Email作为employee_id
-      password: password, // 直接使用输入的密码
-    };
-  
-    // 在发送请求之前 alert 数据内容
-    alert(`Sending Staff Login Data: ${JSON.stringify(requestBody)}`);
-  
-    try {
-      const response = await axios.post(
-        'http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/login.php/employee',
-        requestBody,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-  
-      // 解析返回结果
-      const responseData = response.data;
-  
-      // 验证成功时处理数据
-      if (responseData.status === 'success') {
-        const position = responseData.message.position;
-  
-        // 存储数据到 localStorage
-        localStorage.setItem('position', position);
-        localStorage.setItem('employee_id', email); // 存储Email作为employee_id
-        localStorage.setItem('password', password);
-        if (position==="Manager") {
-          navigate('/dashboard');
-        } else if (position==="Salesman") {
-          navigate('/dashboard_staff');
-        } else if (position==="Supplier") {
-          navigate('/dashboard_supplier');
-        } else {
-          alert(`Retrurn message: ${JSON.stringify(response)}`);
-        }
-  
-        alert(`Login successful! Position: ${position}`);
-      } else {
-        alert(`Retrurn message: ${JSON.stringify(response)}`);
-      }
-    } catch (error) {
-      alert(`Error: ${error.message}`);
-    }
-  };
-  
-  const handleCustomerLogin = async (event) => {
-    event.preventDefault(); // 阻止表单默认提交行为
-  
-    const email = document.getElementById('email').value.trim(); // 获取输入的Email作为customer_id
-    const password = document.getElementById('password').value;
-  
-    // 构建请求体
-    const requestBody = {
-       email, // 直接使用Email作为customer_id
-       password, // 直接使用输入的密码
-    };
-  
-    // 在发送请求之前 alert 数据内容
-    alert(`Sending Customer Login Data: ${JSON.stringify(requestBody)}`);
-  
-    try {
-      const response = await axios.post(
-        'http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/login.php/customer',
-        requestBody,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-  
-      // 解析返回结果
-      const responseData = response.data;
-  
-      // 验证成功时处理数据
-      if (responseData.status === 'success') {
-        const customerId = responseData.message;
-  
-        // 存储数据到 localStorage
-        localStorage.setItem('customer_id', email); // 存储Email作为customer_id
-        localStorage.setItem('password', password);
-  
-        alert(`Login successful! Customer ID: ${customerId}`);
-      } else {
-        alert(`Retrurn message: ${JSON.stringify(response)}`);
-      }
-    } catch (error) {
-      alert(`Error: ${error.message}`);
-    }
-  };
 
 
 
@@ -168,6 +70,8 @@ export default function SignInCard() {
   };
 
   // const validateInputs = (event) => {
+
+
   //   const email = document.getElementById('email');
   //   const password = document.getElementById('password');
 
@@ -221,6 +125,117 @@ export default function SignInCard() {
 
   //   // return isValid;
   // };
+
+
+  const handleStaffLogin = async (event) => {
+    event.preventDefault(); // 阻止表单默认提交行为
+  
+    // 确保与 HTML 中的 id 名称匹配
+    const employee_id = document.getElementById('email').value;
+    const password = document.getElementById('password')?.value;
+  
+    // 检查 DOM 元素是否存在
+    if (!employee_id || !password) {
+      alert('员工 ID 或密码不能为空！');
+      return;
+    }
+  
+    // 在发送请求之前 alert 数据内容
+    alert(`Sending Staff Login Data: employee_id=${employee_id}, password=${password}`);
+  
+    try {
+      // 发送员工登录请求
+      const response = await fetch(
+        'http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/login.php/employee',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded', // 设置 Content-Type 为 URL 编码
+          },
+          body: `employee_id=${encodeURIComponent(employee_id)}&password=${encodeURIComponent(password)}`, // URL 编码请求体
+        }
+      );
+  
+      const data = await response.json(); // 解析 JSON 响应
+      
+  
+      if (data.status === 'success') {
+        const position = data.message.position;
+        const employeeId = data.message.employee_id;
+  
+        // 存储数据到 localStorage
+        localStorage.setItem('position', position);
+        localStorage.setItem('employee_id', employeeId);
+        localStorage.setItem('password', password);
+  
+        // 根据 position 导航到对应的页面
+        if (position === 'Manager') {
+          navigate('/dashboard');
+        } else if (position === 'Salesman') {
+          navigate('/dashboard_staff');
+        } else if (position === 'buyer') {
+          navigate('/dashboard_supplier');
+        } else {
+          alert(`Unexpected Position: ${position}`);
+        }
+  
+        alert(`Login successful! Position: ${position}`);
+      } else {
+        alert(`Login failed: ${JSON.stringify(data)}`);
+      }
+    } catch (error) {
+      
+    }
+  };
+  
+  const handleCustomerLogin = async (event) => {
+    event.preventDefault(); // 阻止表单默认提交行为
+  
+    // 确保与 HTML 中的 id 名称匹配
+    const customer_id = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+  
+    // 检查 DOM 元素是否存在
+    if (!customer_id || !password) {
+      alert('顾客 ID 或密码不能为空！');
+      return;
+    }
+  
+    // 在发送请求之前 alert 数据内容
+    alert(`Sending Customer Login Data: customer_id=${customer_id}, password=${password}`);
+  
+    try {
+      // 发送顾客登录请求
+      const response = await fetch(
+        'http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/login.php/customer',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded', // 设置 Content-Type 为 URL 编码
+          },
+          body: `customer_id=${encodeURIComponent(customer_id)}&password=${encodeURIComponent(password)}`, // URL 编码请求体
+        }
+      );
+  
+      const data = await response.json(); // 解析 JSON 响应
+      //document.getElementById('customerResponse').textContent = `响应: ${JSON.stringify(data)}`;
+  
+      if (data.status === 'success') {
+        const customerId = data.message;
+  
+        // 存储数据到 localStorage
+        localStorage.setItem('customer_id', customerId);
+        localStorage.setItem('password', password);
+        navigate('/mainpage');
+        alert(`Login successful! Customer ID: ${customerId}`);
+      } else {
+        alert(`Login failed: ${JSON.stringify(data)}`);
+      }
+    } catch (error) {
+      
+    }
+  };
+
 
   return (
     <Card variant="outlined">

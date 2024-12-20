@@ -19,7 +19,7 @@ const UserInfoPage = () => {
     const fetchOrderData = async () => {
       try {
         const response = await fetch(
-          'http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/customer.php/orders/customer/1',
+          `http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/customer.php/orders/customer/${customerId}`, // 使用模板字符串
           {
             method: 'GET',
             headers: {

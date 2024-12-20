@@ -65,8 +65,8 @@ function App() {
           <Route path="/product-introduction" element={<ProductIntroductionPage />} />
           <Route path="/terms-of-service" element={<TermsOfServicePage />} />
           <Route path="/user-info" element={<UserInfoPage />} />
-          <Route path="/" element={<TestAPI />} />
-          <Route path="/signin" element={<SignInSide />} /> 
+          <Route path="/test" element={<TestAPI />} />
+          <Route path="/" element={<SignInSide />} /> 
           <Route path="/signup" element={<SignUp />} /> {/* 路由到 SignUp 页面 */}
           <Route path="/dashboard" element={<Dashboard />} /> {/* 添加新的 Dashboard 路由 */}
           <Route path="/dashboard_staff" element={<Dashboard_staff />} /> {/* 添加新的 Dashboard 路由 */}

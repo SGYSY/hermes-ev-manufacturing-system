@@ -70,7 +70,7 @@ export default function SelectContent() {
             <DevicesRoundedIcon sx={{ fontSize: '1rem' }} />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Employee" secondary="Employee Account" />
+        <ListItemText primary="Salesman" secondary="Salesman Account" />
       </MenuItem>
       <MenuItem value={10}>
         <ListItemAvatar>

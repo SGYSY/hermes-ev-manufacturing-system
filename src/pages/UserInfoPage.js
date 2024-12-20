@@ -101,8 +101,8 @@ const UserInfoPage = () => {
                   <th>Customer ID</th>
                   <th>Order Date</th>
                   <th>Delivery Date</th>
-                  <th>Model ID</th>
-                  <th>Vehicle ID</th>
+                  <th>Order ID</th>
+                  <th>Total Amount</th>
                 </tr>
               </thead>
               <tbody>
@@ -112,8 +112,8 @@ const UserInfoPage = () => {
                     <td>{order.customer_id}</td>
                     <td>{order.order_date}</td>
                     <td>{order.delivery_date}</td>
-                    <td>{order.model_id}</td>
-                    <td>{order.vehicle_id}</td>
+                    <td>{order.order_id}</td>
+                    <td>{order.total_amount}</td>
                   </tr>
                 ))}
               </tbody>

@@ -14,6 +14,7 @@ import StatCard from './StatCard';
 import InventoryTable from './InventoryTable';
 import PurchaseDetailsTable from './PurchaseDetailsTable';
 import Summary from './Summary';
+import Order from './Order';
 
 const data = [
   {
@@ -78,6 +79,7 @@ export default function MainGrid() {
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
           <Stack gap={2} direction={{ xs: 'column', sm: 'row', lg: 'column' }}>
+            <Order />
           </Stack>
         </Grid>
       </Grid>

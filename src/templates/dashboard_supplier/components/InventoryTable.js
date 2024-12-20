@@ -30,7 +30,7 @@ export default function MaterialInventoryDataGrid() {
   }, []);
 
   return (
-    <div style={{ height: 600, width: '100%' }}>
+    <div style={{ width: '100%' }}>
       <DataGrid
         rows={rows}
         columns={columns}

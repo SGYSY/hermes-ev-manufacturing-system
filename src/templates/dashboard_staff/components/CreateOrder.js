@@ -116,11 +116,11 @@ const CreateOrder = () => {
       }}
     >
       <Typography variant="h5" gutterBottom>
-        创建订单
+        Create Order
       </Typography>
       <Stack spacing={2}>
         <TextField
-          label="订单 ID"
+          label="Order ID"
           variant="outlined"
           value={orderData.order_id}
           onChange={(e) =>
@@ -129,7 +129,7 @@ const CreateOrder = () => {
         />
         <TextField
           select
-          label="顾客 ID"
+          label="Customer ID"
           variant="outlined"
           value={orderData.customer_id}
           onChange={(e) =>
@@ -144,7 +144,7 @@ const CreateOrder = () => {
         </TextField>
         <TextField
           select
-          label="车辆 ID"
+          label="Store ID"
           variant="outlined"
           value={orderData.store_id}
           onChange={(e) =>
@@ -158,7 +158,7 @@ const CreateOrder = () => {
           ))}
         </TextField>
         <TextField
-          label="订单日期"
+          label="Order Date"
           variant="outlined"
           type="date"
           InputLabelProps={{ shrink: true }}
@@ -168,7 +168,7 @@ const CreateOrder = () => {
           }
         />
         <TextField
-          label="交货日期"
+          label="Delivery Date"
           variant="outlined"
           type="date"
           InputLabelProps={{ shrink: true }}
@@ -178,7 +178,7 @@ const CreateOrder = () => {
           }
         />
         <TextField
-          label="总金额"
+          label="Total"
           variant="outlined"
           value={orderData.total_amount}
           onChange={(e) =>
@@ -186,7 +186,7 @@ const CreateOrder = () => {
           }
         />
         <Button variant="contained" color="primary" onClick={handleSubmit}>
-          创建订单
+          Create Order
         </Button>
       </Stack>
     </Box>

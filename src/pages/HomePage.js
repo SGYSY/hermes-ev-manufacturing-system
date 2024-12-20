@@ -114,7 +114,7 @@ const HomePage = () => {
 
 
   return (
-    <div>
+    <div classname="container">
       {/* Header Section */}
       <header className="header">
         <nav className="navbar">

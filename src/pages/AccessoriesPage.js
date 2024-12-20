@@ -127,8 +127,8 @@ const AccessoriesPage = () => {
 
 // 动态生成 order_id
     const currentYear = new Date().getFullYear(); // 获取当前年份
-    const randomThreeDigitNumber = Math.floor(100 + Math.random() * 900); // 生成 100 到 999 的随机三位数
-    let orderIdString = `${ModelMap[Model]}${ColorMap[Color]}${TiresMap[Tires]}${SeatsMap[Seats]}${NavigationMap[Navigation]}${StyleMap[Style]}${userId}${randomThreeDigitNumber}`;
+    const randomNumber = Math.floor(Math.random() * 100); // 生成 10 到 99 的随机两位数
+    let orderIdString = `${ModelMap[Model]}${ColorMap[Color]}${TiresMap[Tires]}${SeatsMap[Seats]}${NavigationMap[Navigation]}${StyleMap[Style]}${userId}${randomNumber}`;
 
     // 去掉非数字部分并转换为整数
     let orderId = parseInt(orderIdString.replace(/\D/g, ''), 10); // 将非数字字符替换为空字符串，并转换为整数

@@ -13,27 +13,27 @@ import { SitemarkIcon } from './CustomIcons';
 const items = [
   {
     icon: <SettingsSuggestRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Seamless Access',
+    title: 'Smart Connectivity',
     description:
-      'Effortlessly log in to your account with just a few clicks, setting you on the road to an enhanced driving experience.',
+      'Experience seamless integration with Hermes SmartLink, keeping you connected to your car and the world.',
   },
   {
     icon: <ConstructionRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Enhanced Security',
+    title: 'Unmatched Safety',
     description:
-      'Rest easy knowing your personal information is protected by state-of-the-art security features designed for your peace of mind.',
+      'Hermes vehicles are engineered with advanced safety systems, ensuring your peace of mind on every journey.',
   },
   {
     icon: <ThumbUpAltRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Intuitive Interface',
+    title: 'Effortless Control',
     description:
-      'Navigate through your account with ease, thanks to a user-friendly design that makes managing your vehicle\'s details a breeze.',
+      'Control every feature at your fingertips with an intuitive design tailored for your convenience.',
   },
   {
     icon: <AutoFixHighRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Innovative Features',
+    title: 'Future-Ready Design',
     description:
-      'Stay connected with cutting-edge tools and personalized options that evolve with your needs, helping you get the most out of your vehicle.',
+      'Drive innovation with Hermes – where sleek design meets groundbreaking technology for a superior experience.',
   },
 ];
 

@@ -166,19 +166,19 @@ const AccessoriesPage = () => {
     };
   
     try {
-      alert(`订单数据：\n${JSON.stringify(orderData, null, 2)}`);
+      alert(`Order Data：\n${JSON.stringify(orderData, null, 2)}`);
       const response = await axios.post(
         "http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com/salesman.php/createOrder/1",
         orderData
       );
-      alert(`返回数据：\n${JSON.stringify(response.data, null, 2)}`);
+      alert(`Return Data：\n${JSON.stringify(response.data, null, 2)}`);
     } catch (error) {
       if (error.response) {
-        alert(`订单创建失败：\n${error.message}`);
+        alert(`Failed to create order：\n${error.message}`);
       } else if (error.request) {
-        alert("无法访问服务器");
+        alert("Fetch failed");
       } else {
-        alert(`发生错误：\n${error.message}`);
+        alert(`Error：\n${error.message}`);
       }
     }
   };
@@ -283,7 +283,7 @@ const AccessoriesPage = () => {
 
       {/* 左侧预览区域 */}
       <div className="preview-area">
-        <img src={previewSrc} alt="预览图" id="preview-image" />
+        <img src={previewSrc} alt="default-image" id="preview-image" />
       </div>
 
       {/* 右侧选购选项区域 */}

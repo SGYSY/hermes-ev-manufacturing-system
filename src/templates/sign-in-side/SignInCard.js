@@ -255,7 +255,7 @@ export default function SignInCard() {
         noValidate
         sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 2 }}
       >
-      
+
         <FormControl>
           <FormLabel htmlFor="email">Employee / Customer ID</FormLabel>
           <TextField
@@ -317,10 +317,8 @@ export default function SignInCard() {
           Don&apos;t have an account?{' '}
           <span>
             <Link
-              to="/signup"
               component="button"
               type="button"
-              onClick={() => navigate('/signup')}
               variant="body2"
               sx={{ alignSelf: 'center' }}
             >

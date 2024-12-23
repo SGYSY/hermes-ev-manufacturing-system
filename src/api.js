@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://phphermesbackendv2-env.us-east-1.elasticbeanstalk.com', // 更改为你的实际基础 URL
+  baseURL: 'http://121.43.103.94', // 更改为你的实际基础 URL
   headers: {
     'Content-Type': 'application/json',
   },

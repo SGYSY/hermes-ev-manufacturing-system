@@ -255,8 +255,9 @@ export default function SignInCard() {
         noValidate
         sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 2 }}
       >
+      
         <FormControl>
-          <FormLabel htmlFor="email">Email</FormLabel>
+          <FormLabel htmlFor="email">Employee / Customer ID</FormLabel>
           <TextField
             error={emailError}
             helperText={emailErrorMessage}
